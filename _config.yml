@@ -4,7 +4,7 @@ timezone: 'Asia/Shanghai'
 site_name : Blog - jast
 email: zhangz_w@hotmail.com
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://www.	jast.red" # the base hostname & protocol for your site
+url: "http://www.jast.red" # the base hostname & protocol for your site
 github_username:  jast90
 keywords: "jast, jast的博客"
 paginate: 10
