@@ -1,7 +1,0 @@
-baseurl: "/" # the subpath of your site, e.g. /blog/
-url: "http://www.jast.red" # the base hostname & protocol for your site
-
-
-sass:
-    sass_dir: _scss
-    style: compressed
