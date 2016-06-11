@@ -1,3 +1,6 @@
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://www.jast.red" # the base hostname & protocol for your site
 
+gems:
+  - jekyll-sitemap
+  - jekyll-paginate
