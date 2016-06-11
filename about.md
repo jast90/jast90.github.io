@@ -1,6 +1,6 @@
 ---
-layout:bootstrap
-title:"关于"
+layout: bootstrap
+title: "关于"
 permalink: /aoubt/
 ---
 

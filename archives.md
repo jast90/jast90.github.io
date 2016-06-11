@@ -1,6 +1,6 @@
 ---
-layout:bootstrap
-title:"归档"
+layout: bootstrap
+title: "归档"
 permalink: /archives/
 ---
 <div>
