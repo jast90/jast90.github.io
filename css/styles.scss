@@ -1,5 +1,9 @@
-@import "base";
-@import "type";
-@import "code";
-@import "layout";
+
+// Import partials from `sass_dir` (defaults to `_sass`)
+@import 
+	"base",
+	"type",
+	"code",
+	"layout"
+;
 
