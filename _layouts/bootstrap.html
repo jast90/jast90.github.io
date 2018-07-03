@@ -3,8 +3,14 @@
  {% include head-bootstrap.html %}
 <body>
 	<div class="container">
-		{% include header.html %}
-    	{{ content }}
+		<div class="row">
+			 <div class="col-md-2">
+            {% include header.html %}
+        	</div>
+        	<div class="col-md-10">
+        		{{ content }}
+        	</div>
+		</div>
 	</div>
 </body>
 </html>
