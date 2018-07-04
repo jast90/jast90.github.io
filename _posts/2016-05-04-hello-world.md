@@ -5,7 +5,7 @@ description: '第一篇文章'
 date: '2016-05-04 09:00:00'
 author: Jast
 ---
-## {{ page.title }}</h2>
+## {{ page.title }} 
 <i class="far fa-clock"></i>{{ page.date | date: "%Y-%m-%d"}}  
 我的第一篇文章   
 
