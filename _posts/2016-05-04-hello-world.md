@@ -6,6 +6,6 @@ date: '2016-05-04 09:00:00'
 author: Jast
 ---
 ## {{ page.title }} 
-<i class="far fa-clock"></i>{{ page.date | date: "%Y-%m-%d"}}  <i class="fas fa-user">{{ post.author }}
+<i class="far fa-clock"></i>{{ page.date | date: "%Y-%m-%d"}}  <i class="fas fa-user">{{ page.author }}   
 我的第一篇文章   
 

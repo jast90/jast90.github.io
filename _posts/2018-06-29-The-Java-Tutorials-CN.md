@@ -6,7 +6,7 @@ date: '2018-06-29 16:12:00'
 author: Jast
 ---
 ## {{ page.title }}
-<i class="far fa-clock"></i>{{ page.date | date: "%Y-%m-%d"}}  <i class="fas fa-user">{{ post.author }}
+<i class="far fa-clock"></i>{{ page.date | date: "%Y-%m-%d"}}  <i class="fas fa-user">{{ page.author }}   
 # 项目说明
 该项目是翻译[甲骨文Java官方教程](https://docs.oracle.com/javase/tutorial/index.html)  
 # 教程目录
