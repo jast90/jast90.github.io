@@ -12,5 +12,12 @@
         	</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		$(function () {
+            $(".card").on("click", function () {
+                window.location.href = $(this).find("a").attr("href");
+            })
+        });
+	</script>
 </body>
 </html>
