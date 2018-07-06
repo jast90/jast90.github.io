@@ -2,7 +2,7 @@
 layout: bootstrap
 title: '版本控制系统（VCS）'
 description: '版本控制系统。为什么需要它？是什么？有哪些类型？'
-date: '20118-07-06 11:02:00'
+date: '2018-07-06 11:02:00'
 author: Jast
 ---
 ## {{ page.title }} 

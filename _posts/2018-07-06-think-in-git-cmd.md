@@ -2,7 +2,7 @@
 layout: bootstrap
 title: 'Git命令理解'
 description: 'Think in git cmd'
-date: '20118-07-06 15:58:00'
+date: '2018-07-06 15:58:00'
 author: Jast
 ---
 ## {{ page.title }} 
