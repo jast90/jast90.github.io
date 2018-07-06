@@ -26,6 +26,7 @@ author: Jast
 本地版本控制系统，文件和版本信息都是由本电脑维护的，
 #### 工具
 - [RCS](https://zh.wikipedia.org/wiki/%E4%BF%AE%E8%AE%A2%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F)。
+
 #### 缺点
 因为是本地的，所以只能被一台电脑所使用的，不能被其他电脑使用，从而就不能协同完成工作。
 
@@ -35,6 +36,7 @@ author: Jast
 - CVS
 - Subversion
 - Perforce
+
 #### 缺点
 如果服务器挂了，客户端就无法进行拉取和提交操作。
 
@@ -47,4 +49,5 @@ author: Jast
 - Mercurial
 - Bazaar
 - Darcs
+
 #### 缺点
