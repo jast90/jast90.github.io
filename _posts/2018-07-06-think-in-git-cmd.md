@@ -65,7 +65,7 @@ Untracked files:
 - Changes to be committed: 已暂存
 - Changes not staged for commit:未暂存（修改了的文件也是未暂存的，通过git add .暂存当前目录下的所有文件）
 - Untracked files：未跟踪
-### 带`-s`选项
+#### 带`-s`选项
 实例：  
 ```
 $ git status -s
