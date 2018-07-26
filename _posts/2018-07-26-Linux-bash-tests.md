@@ -78,6 +78,7 @@ num1 -ne num2 # 如果num1不等于num2时返回true，否则返回false。ne:no
 表达式1 -a 表达式2	#表达式1和表达式2同时为true时，返回true,否则返回false。a: and
 表达式1 -o 表达式2	#表达式1和表达式2有一个为true时，返回true,否则返回false。a: or
 ```
+
 以上符号应用在[]中，如：[-e /test -o -e /ad]  
 
 5.2 逻辑运算符  
@@ -86,4 +87,5 @@ num1 -ne num2 # 如果num1不等于num2时返回true，否则返回false。ne:no
 &&	# 逻辑与
 ||	# 逻辑或
 ```
+
 以上符号应用在多个[]之间，如：[-e /test] || [-e /ad]
