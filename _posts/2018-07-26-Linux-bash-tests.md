@@ -24,9 +24,7 @@ test 表达式
 - 块设备文件（b）
 - 套接口文件（s）
 - 符号链接文件（l）
-
 参考[Linux文件类型全解析](http://os.51cto.com/art/201003/185612.htm)    
-
 2.2 文件测试符  
 ```
 -b 文件 		#文件存在且是块文件时返回true,否则返回false
@@ -49,7 +47,6 @@ test 表达式
 文件1 -nt 文件2 #当文件1比文件2新时返回true,否则放回false。nt：是newer than的首字母缩写
 文件1 -ot 文件2 #当文件1比文件2旧时返回true,否则放回false。ot：是older than的首字母缩写
 ```
-
 3. 字符串测试
 3.1 字符串测试符  
 ```
@@ -60,7 +57,6 @@ test 表达式
 "string1">"string2" 	# 按照字典排序，字符串string1排在string2之前时返回true，否则返回false
 "string1"<"string2"	 	# 按照字典排序，字符串string1排在string2之后时返回true，否则返回false
 ```
-
 4. 整数比较  
 4.1 整数测试符  
 ```
