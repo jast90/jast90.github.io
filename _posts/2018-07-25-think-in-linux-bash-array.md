@@ -31,7 +31,6 @@ echo ${score[*]}
 90 91 92 hello world
 echo ${score[@]}
 90 91 92 hello world
-
 ```
 4. 数组长度  
 ```
