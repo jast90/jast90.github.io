@@ -34,7 +34,6 @@ author: Jast
 - Java 序列化、反序列化以及自定义序列化、反序列话逻辑（writeObject(ObjectOutputStream o)和readObject(ObjectInputStream i)）
 
 # 存在未理解之处
-	Hashtable的count字段是什么时候初始化的？从赋值来看是通过readObject()方法来时先的。但是具体实现需要回去取研读下《Java编程思想》序列化章节内容
-	```
+Hashtable的count字段是什么时候初始化的？从赋值来看是通过readObject()方法来实现的。但是具体实现需要回去取研读下《Java编程思想》序列化章节内容
+
 	private transient int count;
-	```
