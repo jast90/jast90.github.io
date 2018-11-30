@@ -82,7 +82,7 @@ Hashtable的count字段是什么时候初始化的？从赋值来看是通过rea
 # 如何在IDEA调试模式下查看储存结构？
 Hashtable在IDEA下的默认视图：
 
-![Java-Hashtable-data-structure-default-view](../img/Java-Hashtable-data-structure-default-view.png)
+![Java-Hashtable-data-structure-default-view](https://github.com/jast90/jast90.github.io/blob/master/img/Java-Hashtable-data-structure-default-view.png)
 
 如何查看对象视图？如下图操作：
 
