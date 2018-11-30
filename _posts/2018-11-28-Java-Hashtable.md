@@ -109,3 +109,6 @@ table数组中有两个元素，一个是`MyKey.i=10`，一个是`Mykey.i=9`,按
 	MyKey.i=3.next -> MyKey.i=5
 	MyKey.i=5.next -> MyKey.i=7
 	MyKey.i=7.next -> null
+
+为什么顺序不是按加入的顺序的呢，而是一部分到过来的？
+因为Hashtable的key数组默认大小是11，当加入11个元素时，会自动扩容，在加入第8个元素时会rehash一次，rehash时是将新哈希表中的元素作为后变面如元素的next元素的，所有就会出现部分元素顺序相反。
