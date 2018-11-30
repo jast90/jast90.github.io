@@ -8,7 +8,7 @@ author: Jast
 # Hashtable 提供的功能
 - Hashtable是一个线程安全的Map，其线程安全是通过在各个方法上加上synchronized关键字实现的，即：该类只能被一个线程所使用，其他调用该类时会阻塞等待;
 - 实现了哈希表，映射key到value；
-- key和value都不能为null，key类型必须实现hashCode()和equals()方法；
+- key和value都不能为null（因为需要调用hashCode()方法，如果为null的话就会抛出NPE），key类型必须实现hashCode()和equals()方法；
 - put(K k,V v); 
 - get(K k,V v);
 - ~~Hashtable没有实现hash冲突的解决方案，冲突需要按自己的逻辑实现，它只提供了哈希表自动扩容的功能；~~
@@ -110,5 +110,5 @@ table数组中有两个元素，一个是`MyKey.i=10`，一个是`Mykey.i=9`,按
 	MyKey.i=5.next -> MyKey.i=7
 	MyKey.i=7.next -> null
 
-为什么顺序不是按加入的顺序的呢，而是一部分到过来的？
-因为Hashtable的key数组默认大小是11，当加入11个元素时，会自动扩容，在加入第8个元素时会rehash一次，rehash时是将新哈希表中的元素作为后变面如元素的next元素的，所有就会出现部分元素顺序相反。
+为什么顺序不是按加入的顺序的呢，而是一部分到过来的？  
+因为Hashtable的key数组默认大小是11，当加入11个元素时，会自动扩容，在加入第8个元素时会rehash一次，rehash时是将新哈希表中的元素作为后面加入元素的next的，所有就会出现部分元素顺序相反。
