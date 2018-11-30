@@ -82,15 +82,15 @@ Hashtable的count字段是什么时候初始化的？从赋值来看是通过rea
 # 如何在IDEA调试模式下查看储存结构？
 Hashtable在IDEA下的默认视图：
 
-![Java-Hashtable-data-structure-default-view](../img/Java-Hashtable-data-structure-default-view.png)
+![Java-Hashtable-data-structure-default-view](https://raw.githubusercontent.com/jast90/jast90.github.io/master/img/Java-Hashtable-data-structure-default-view.png)
 
 如何查看对象视图？如下图操作：
 
-![Java-Hashtable-data-structure](../img/Java-Hashtable-data-structure.png)
+![Java-Hashtable-data-structure](https://raw.githubusercontent.com/jast90/jast90.github.io/master//img/Java-Hashtable-data-structure.png)
 
 对象视图如下
 
-![Java-Hashtable-data-structure-object-view](../img/Java-Hashtable-data-structure-object-view.png)
+![Java-Hashtable-data-structure-object-view](https://raw.githubusercontent.com/jast90/jast90.github.io/master//img/Java-Hashtable-data-structure-object-view.png)
 
 从如上对象视图可以看出Hashtable的table字段的具体存储方式：
 table数组中有两个元素，一个是`MyKey.i=10`，一个是`Mykey.i=9`,按如上查看对象视图的方法查看这两个元素的对象视图查看`java.util.Hashtable.Entry#next`属性，可以看到`MyKey.i=10`的next属性值是`MyKey.i=8`...
