@@ -6,7 +6,7 @@ date: '2019-04-26 14:31:00'
 author: Jast
 ---
 ## centos 安装docker CE
-0.[参考](https://docs.docker.com/install/linux/docker-ce/centos/)
+0. [参考](https://docs.docker.com/install/linux/docker-ce/centos/)  
 
 1. 安装需要的包
 ```
@@ -15,7 +15,7 @@ sudo yum install -y yum-utils \
   lvm2
 ```
 
-2.添加仓库
+2. 添加仓库
 ```
 sudo yum-config-manager \
     --add-repo \
