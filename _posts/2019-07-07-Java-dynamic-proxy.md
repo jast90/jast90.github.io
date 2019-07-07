@@ -7,6 +7,7 @@ author: Jast
 ---
 # [译]Java 动态代理
 　[原文地址](https://docs.oracle.com/javase/8/docs/technotes/guides/reflection/proxy.html)|[本文地址]()
+
 ## 内容
 - 引言
 - 动态代理API
