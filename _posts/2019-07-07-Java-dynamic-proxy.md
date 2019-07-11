@@ -1,11 +1,10 @@
 ---
 layout: bootstrap
-title: 'Java 动态代理'
+title: '[译]Java 动态代理'
 description: 'Java 动态代理'
 date: '2019-7-7 12:43:00'
 author: Jast
 ---
-# [译]Java 动态代理
 　[原文地址](https://docs.oracle.com/javase/8/docs/technotes/guides/reflection/proxy.html)|[本文地址](http://jast90.github.io/2019/07/07/Java-dynamic-proxy.html)
 
 ## 内容
