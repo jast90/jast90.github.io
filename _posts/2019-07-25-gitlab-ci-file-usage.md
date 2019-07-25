@@ -22,7 +22,7 @@ author: Jast
 
 ### 配置参数
 |参数|作用描述|
-|----|----|
+| ---- | ---- |
 |script|script是job所需要的唯一必须的参数。它是一个由Runner执行的shell脚本|
 |image|用于指定用于job的Docker镜像。|
 |services|用于指定服务的Docker镜像，链接到镜像中指定的基本镜像。|
