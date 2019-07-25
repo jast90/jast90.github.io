@@ -6,10 +6,12 @@ date: '2019-07-25 15:41:00'
 author: Jast
 ---
 ## Gitlab CI/CD 流水线配置参考
+
 .gitlab-ci.yml文件定义了流水线的结构和顺序，并确定：
 - 使用GitLab Runner执行什么。
 - 遇到特定条件时要做出哪些决定。例如，当进程成功或失败时。
 ### 不可用的jobs名称
+
 每个作业必须具有唯一的名称，但有一些保留的关键字不能用作作业名称：
 - image
 - services
@@ -21,6 +23,7 @@ author: Jast
 - cache
 
 ### 配置参数
+
 | 参数 | 作用描述 |
 | ---- | ----  |
 | script|script是job所需要的唯一必须的参数。它是一个由Runner执行的shell脚本 |
