@@ -11,6 +11,7 @@ author: Jast
 2. java.lang.reflect包的方法
 3. 加载一个类时，父类还未加载时，先加载父类
 4. 虚拟机启动时，需要指定一个要执行的主类，先加载这个主类
+5. 当使用JDK1.7的动态语言支持时，如果一个java.lang.invoke.MethodHandle实例最后的解析结果REF_getStatic,REF_putStatic.REF_invokeStatic的方法句柄，并且这个方法句柄最对应的类没有进行过初始化，则需要先触发其初始化。
 
 
 # 什么是类加载器？
