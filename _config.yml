@@ -4,3 +4,7 @@ url: "http://www.jastz.me/" # the base hostname & protocol for your site
 gems:
   - jekyll-sitemap
   - jekyll-paginate
+
+
+paginate: 9
+paginate_path: "/blog/page:num/"
