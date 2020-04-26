@@ -23,11 +23,16 @@ title: Blog - Jast
     		<li class="page-item"><a class="page-link" href="{{ paginator.previous_page_path }}">上一页</a></li>
 	  {% else %}
 	  	<li class="page-item disabled">上一页</li>
+	  	<li class="page-item disabled">
+      			<a class="page-link" href="#" tabindex="-1" aria-disabled="true">上一页</a>
+   		</li>
 	  {% endif %}
 	  {% if paginator.next_page %}
 	 	<li class="page-item"><a class="page-link" href="{{ paginator.next_page_path }}">下一页</a></li>
 	  {% else %}
-    		<li class="page-item disabled">下一页</li>
+	  	<li class="page-item disabled">
+      			<a class="page-link" href="#" tabindex="-1" aria-disabled="true">下一页</a>
+   		</li>
   	  {% endif %}
   </ul>
 </nav>
