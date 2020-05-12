@@ -12,7 +12,7 @@ permalink: /resume
 
 - 张知文/男/1991
 - 本科/赣南师范大学/网络工程 2010-2014
-- 技术博客：[http://jast90.github.io](http://jast90.github.io)
+- 技术博客：[https://jast90.github.io](https://jast90.github.io)
 
 # 工作经历
 ## 深圳友宝科斯科技有限公司（2016.11-2019.9） Java软件工程师
