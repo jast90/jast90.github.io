@@ -6,6 +6,7 @@ permalink: /resume
 # 联系方式
 
 - Email: zhangz_w45@163.com
+- 手机：13265642367
 
 # 个人信息
 
