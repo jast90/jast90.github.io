@@ -15,7 +15,7 @@ permalink: /resume
 - 技术博客：[http://jast90.github.io](http://jast90.github.io)
 
 # 工作经历
-## 深圳友宝科斯科技有限公司（2016.11-2019.9 Java软件工程师
+## 深圳友宝科斯科技有限公司（2016.11-2019.9） Java软件工程师
 ### 职责
 1. 负责自动售货机业务微服务平台建设
 2. 参与项目的系统分析、设计，负责核心模块代码编写
@@ -91,6 +91,7 @@ Spring MVC + JSP + Apache Tiles + Hibernate + Oracle + SVN + maven
 
 # 技能清单
 - 编程语言：Java/Javascript
+- 大数据：Hadoop/Hive
 - Web框架：Spring/SpringMVC/Spring Cloud/Mybatis/Jsoup
 - 数据库：MySQL/Redis/ElasticSearch
 - 前端框架：Bootstrap/jQuery
