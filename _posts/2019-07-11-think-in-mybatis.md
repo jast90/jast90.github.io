@@ -1,5 +1,5 @@
 ---
-layout: bootstrap
+layout: post
 title: 'Mybatis源码分析'
 description: 'Think in Mybatis'
 date: '2019-07-11 16:54:00'

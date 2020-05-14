@@ -1,5 +1,5 @@
 ---
-layout: bootstrap
+layout: post
 title: 'Java官方教程'
 description: 'Java官方教程'
 date: '2018-06-29 16:12:00'

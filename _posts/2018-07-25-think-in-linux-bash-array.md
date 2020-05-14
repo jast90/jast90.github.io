@@ -1,5 +1,5 @@
 ---
-layout: bootstrap
+layout: post
 title: 'bash 数组 理解'
 description: 'linux,bash array'
 date: '2018-07-25 11:37:00'

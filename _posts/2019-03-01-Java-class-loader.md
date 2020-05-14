@@ -1,5 +1,5 @@
 ---
-layout: bootstrap
+layout: post
 title: 'Java 类加载'
 description: 'Java Class loader'
 date: '2018-11-19 16:54:00'

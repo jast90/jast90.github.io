@@ -1,5 +1,5 @@
 ---
-layout: bootstrap
+layout: post
 title: 'Java ThreadPoolExecutor 源码分析'
 description: 'Think in Java ThreadPoolExecutor'
 date: '2019-10-26 15:56:00'

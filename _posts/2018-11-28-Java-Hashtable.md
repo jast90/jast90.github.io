@@ -1,5 +1,5 @@
 ---
-layout: bootstrap
+layout: post
 title: 'Java Hashtable 源码分析'
 description: 'Think in Java Hashtable'
 date: '2018-11-28 11:19:00'

@@ -1,5 +1,5 @@
 ---
-layout: bootstrap
+layout: post
 title: 'Git命令理解'
 description: 'Think in git cmd'
 date: '2018-07-06 15:58:00'

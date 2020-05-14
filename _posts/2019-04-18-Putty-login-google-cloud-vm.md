@@ -1,5 +1,5 @@
 ---
-layout: bootstrap
+layout: post
 title: 'PuTTy login-google-cloud-vm'
 description: 'PuTTy login google cloud vm'
 date: '2018-11-19 16:54:00'

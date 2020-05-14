@@ -1,5 +1,5 @@
 ---
-layout: bootstrap
+layout: post
 title: '外化配置'
 description: '外化配置,externalized configuration'
 date: '2018-08-03 14:15:00'

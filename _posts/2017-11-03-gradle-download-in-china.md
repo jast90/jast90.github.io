@@ -1,5 +1,5 @@
 ---
-layout: bootstrap
+layout: post
 title: '在中国下载gradle'
 date: '2017-11-03 10:43:00'
 author: Jast

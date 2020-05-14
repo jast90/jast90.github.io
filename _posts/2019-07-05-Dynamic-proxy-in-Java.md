@@ -1,5 +1,5 @@
 ---
-layout: bootstrap
+layout: post
 title: 'Java中的动态代理'
 description: 'Java中的动态代理'
 date: '2019-07-05 16:54:00'

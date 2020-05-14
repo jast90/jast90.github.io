@@ -1,5 +1,5 @@
 ---
-layout: bootstrap
+layout: post
 title: 'Java 动态代理源码分析'
 description: 'Java 动态代理源码分析'
 date: '2019-8-1 15:26:00'

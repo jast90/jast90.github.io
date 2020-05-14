@@ -1,5 +1,5 @@
 ---
-layout: bootstrap
+layout: post
 title: 'Java HashMap涉及的数据结构及实现'
 description: 'Data structure of Java HashMap'
 date: '2018-11-30 16:40:00'

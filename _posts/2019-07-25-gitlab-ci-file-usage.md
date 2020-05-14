@@ -1,5 +1,5 @@
 ---
-layout: bootstrap
+layout: post
 title: 'Gitlab CI/CD 流水线配置参考'
 description: 'Gitlab CI/CD 流水线配置参考'
 date: '2019-07-25 15:41:00'

@@ -1,5 +1,5 @@
 ---
-layout: bootstrap
+layout: post
 title: 'CentOS install docker CE and docker-compose'
 description: 'CentOS install docker and docker-compose'
 date: '2019-04-26 14:31:00'

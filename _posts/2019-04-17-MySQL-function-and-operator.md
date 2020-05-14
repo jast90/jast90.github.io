@@ -1,5 +1,5 @@
 ---
-layout: bootstrap
+layout: post
 title: 'MySQL 方法和操作'
 description: 'MySQL function and operator'
 date: '2019-04-17 15:14:00'

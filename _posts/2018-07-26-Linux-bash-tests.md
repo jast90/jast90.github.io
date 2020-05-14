@@ -1,5 +1,5 @@
 ---
-layout: bootstrap
+layout: post
 title: 'bash 测试'
 description: 'linux,bash test'
 date: '2018-07-26 10:59:00'

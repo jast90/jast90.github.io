@@ -1,5 +1,5 @@
 ---
-layout: bootstrap
+layout: post
 title: 'kubernetes minikube安装和运行nginx实例'
 description: 'kubernetes安装和运行nginx实例'
 date: '2019-8-2 14:26:00'

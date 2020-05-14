@@ -1,5 +1,5 @@
 ---
-layout: bootstrap
+layout: post
 title: 'Cglib 动态代理使用及深入'
 description: 'Cglib 动态代理使用及深入'
 date: '2019-8-2 14:26:00'

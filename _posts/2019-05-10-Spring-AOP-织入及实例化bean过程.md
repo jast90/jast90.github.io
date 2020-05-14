@@ -1,5 +1,5 @@
 ---
-layout: bootstrap
+layout: post
 title: 'Spring-AOP-织入及实例化bean过程'
 description: 'Spring-AOP-织入及实例化bean过程'
 date: '2019-05-10 16:54:00'
