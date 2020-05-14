@@ -5,9 +5,6 @@ description: 'linux,bash test'
 date: '2018-07-26 10:59:00'
 author: Jast
 ---
-## {{ page.title }} 
-<i class="far fa-clock"></i>{{ page.date | date: "%Y-%m-%d"}}  <i class="far fa-user">{{ page.author }}  
-
 ### Bash 测试  
 #### 1.使用方式  
 ```

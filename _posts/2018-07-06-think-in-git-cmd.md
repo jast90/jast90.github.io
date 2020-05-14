@@ -5,9 +5,6 @@ description: 'Think in git cmd'
 date: '2018-07-06 15:58:00'
 author: Jast
 ---
-## {{ page.title }} 
-<i class="far fa-clock"></i>{{ page.date | date: "%Y-%m-%d"}}  <i class="far fa-user">{{ page.author }}  
-
 ## 1.基础
 ### 1.1 git init
 在现有目录中初始化仓库，执行该命令后会生成一个`.git`的目录，目录中会有如下文件结构:

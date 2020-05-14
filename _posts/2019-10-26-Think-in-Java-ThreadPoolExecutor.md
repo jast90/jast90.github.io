@@ -5,7 +5,6 @@ description: 'Think in Java ThreadPoolExecutor'
 date: '2019-10-26 15:56:00'
 author: Jast
 ---
-## Java ThreadPoolExecutor 源码分析
 
 ### 提交任务
 如果工作线程数量小于核心线程数的，会尝试创建一个新的核心工作者线程来运行该任务；如果工作者线程数大于核心线程数并且小于到最大核心线程数并且可以入队并时，会会继续创建一个工作者线程来运行队列中的任务；如果不能入队则采用相关的丢弃策略来丢弃任务。

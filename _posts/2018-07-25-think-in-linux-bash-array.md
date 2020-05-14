@@ -5,9 +5,6 @@ description: 'linux,bash array'
 date: '2018-07-25 11:37:00'
 author: Jast
 ---
-## {{ page.title }} 
-<i class="far fa-clock"></i>{{ page.date | date: "%Y-%m-%d"}}  <i class="far fa-user">{{ page.author }}  
-
 ### Bash数组  
 1. 定义数组  
 ```

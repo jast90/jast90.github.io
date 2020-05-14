@@ -5,10 +5,10 @@ description: 'Java 动态代理源码分析'
 date: '2019-8-1 15:26:00'
 author: Jast
 ---
-## Java 动态代理源码分析
-### 接口及代理类
 
-#### 接口
+## 接口及代理类
+
+### 接口
 
 ```java
 package cn.jastz.java.reflect.dynamic.proxy;
@@ -24,7 +24,7 @@ public interface Foo {
 }
 ```
 
-#### 代理类
+### 代理类
 
 ```java
 //
@@ -142,22 +142,26 @@ public final class $Proxy0 extends Proxy implements Foo {
 
 ```
 
-#### 为什么不能代理类？
+### 为什么不能代理类？
+
 因为生成的代理类是继承java.lang.reflect.Proxy类、实现被代理接口，因为java是单继承，所以可想而知是不能代理类的，并且运行的时候有做相关的校验的。
 
-### 用途
+## 用途
+
 - [动态获取配置文件](https://www.cnblogs.com/techyc/p/3455950.html)
 - mybatis动态代理使用：通过接口就可以返回数据
 
-### 编码步骤
+## 编码步骤
+
 - 定义被代理接口、被代理接口实现类[可选的]
 - 定义 InvocationHandler
 - 创建代理对象：Proxy.newProxyInstance(ClassLoader loader, Class<?>[] interfaces, InvocationHandler h)
 
-### 源码分析
+## 源码分析
+
 TODO
 
-### 动态代理类class文件生成
+## 动态代理类class文件生成
 
 ```java
 sun.misc.ProxyGenerator.generateProxyClass(java.lang.String, java.lang.Class<?>[], int)  
@@ -170,7 +174,10 @@ sun.misc.ProxyGenerator.generateClassFile()
 System.getProperties().put(
                 "sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
 ```
-### 和设计模式——代理模式的关系
+
+## 和设计模式——代理模式的关系
+
 TODO
-### 参考
+## 参考
+
 1.[JDK动态代理源码分析](https://zhuanlan.zhihu.com/p/29188162)

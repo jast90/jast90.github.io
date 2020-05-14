@@ -5,8 +5,6 @@ description: '版本控制系统。为什么需要它？是什么？有哪些类
 date: '2018-07-06 11:02:00'
 author: Jast
 ---
-## {{ page.title }} 
-<i class="far fa-clock"></i>{{ page.date | date: "%Y-%m-%d"}}  <i class="far fa-user">{{ page.author }}  
 ## 1. 为什么需要版本控制？
 由于项目的迭代，功能的递增，导致项目会出现多个版本。为了方便项目的各版本的管理从而出现了版本控制。
 ### 1.1 如何备份文件？

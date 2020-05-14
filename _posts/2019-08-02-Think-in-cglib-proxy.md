@@ -5,9 +5,8 @@ description: 'Cglib 动态代理使用及深入'
 date: '2019-8-2 14:26:00'
 author: Jast
 ---
-## Cglib 动态代理使用及深入
-### 编码步骤
-#### 定义被代理类及接口
+## 编码步骤
+### 定义被代理类及接口
 ```java
 package cn.jastz.proxy.cglib;
 
@@ -22,7 +21,7 @@ public class HelloService {
 }
 
 ```
-#### 实现MethodInterceptor
+### 实现MethodInterceptor
 ```java
 package cn.jastz.proxy.cglib;
 
@@ -58,7 +57,7 @@ public class ExecuteTimeMethodInterceptor implements MethodInterceptor {
 }
 ```
 
-#### Cglib创建代理对象
+### Cglib创建代理对象
 ```java
 package cn.jastz.proxy.cglib;
 
@@ -83,7 +82,7 @@ public class HelloServiceClient {
 
 ```
 
-### 源码分析
+## 源码分析
 1. `org.springframework.cglib.proxy.Enhancer#create()`
 ```java
 public Object create() {

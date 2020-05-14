@@ -5,7 +5,6 @@ description: 'Gitlab CI/CD 流水线配置参考'
 date: '2019-07-25 15:41:00'
 author: Jast
 ---
-## Gitlab CI/CD 流水线配置参考
 
 .gitlab-ci.yml文件定义了流水线的结构和顺序，并确定：
 - 使用GitLab Runner执行什么。
