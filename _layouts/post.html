@@ -20,7 +20,9 @@
 		$(function () {
             $(".card").on("click", function () {
                 window.location.href = $(this).find("a").attr("href");
-            })
+			})
+			
+			$("img").attr({style:"width:500px;height:500px"})
         });
 	</script>
 	 {% include footer.html %}
