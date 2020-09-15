@@ -1,6 +1,6 @@
 ---
 layout: bootstrap
-title: "简历-张知文"
+title: "链接"
 permalink: /links
 ---
 ## 链接

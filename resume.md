@@ -6,13 +6,13 @@ permalink: /resume
 ### 联系方式
 
 - Email: zhangz_w45@163.com
-- 手机：13265642367
+- 手机：MTMyNjU2NDIzNjc=（base64编码,[base64解码](https://tool.oschina.net/encrypt?type=3)）
 
 ### 个人信息
 
 - 张知文/男/1991
 - 本科/赣南师范大学/网络工程 2010-2014
-- 技术博客：[https://jast90.github.io](https://jast90.github.io)
+- github: https://github.com/jast90
 
 ### 工作经历
 #### 深圳友宝科斯科技有限公司（2016.11-2019.9） Java软件工程师
@@ -56,7 +56,7 @@ Spring MVC + Spring Cloud + Redis + MySQL + Kafka + maven
 
 ##### 实现技术
 
-SpringMVC + Freemarker + Mybatis + Spring Cloud + Kafka + Netty + Eclipse Paho Mqtt + Redis + MySQL + Ace Admin + jQuery  + Git + Jenkins + Nginx + maven
+Spring + SpringMVC + Freemarker + Mybatis + Spring Cloud + Kafka + Netty + Eclipse Paho Mqtt + Redis + MySQL + Ace Admin + jQuery  + Git + Jenkins + Nginx + maven
 ##### 职责描述
 
 1. 负责管理后台Web网站设备APP、广告、设备商品价格、设备商品库存等模块的功能开发及迭代。
@@ -73,7 +73,7 @@ SpringMVC + Freemarker + Mybatis + Spring Cloud + Kafka + Netty + Eclipse Paho M
 
 ##### 实现技术
 
-SpringMVC + Mybatis + Spring Cloud + Kafka + ElasticSearch + Redis + MySQL + OAuth2 JWT + Vue + Ant Design Pro + Git + Jenkins + maven
+Spring + SpringMVC + Mybatis + Spring Cloud + Kafka + ElasticSearch + Redis + MySQL + OAuth2 JWT + Vue + Ant Design Pro + Git + Jenkins + maven
 
 ##### 职责描述
 
@@ -89,7 +89,7 @@ SpringMVC + Mybatis + Spring Cloud + Kafka + ElasticSearch + Redis + MySQL + OAu
 
 ##### 实现技术
 
-Strut2/Spring MVC + Mybatis/Spring JDBC + MySQL + SVN/Git + ant + maven
+Spring + Strut2/Spring MVC + Mybatis/Spring JDBC + MySQL + SVN/Git + ant + maven
 
 ##### 职责描述
 
@@ -106,7 +106,7 @@ Strut2/Spring MVC + Mybatis/Spring JDBC + MySQL + SVN/Git + ant + maven
 
 ##### 实现技术
 
-Spring MVC + JSP + Apache Tiles + Hibernate + Oracle + SVN + maven
+Spring + Spring MVC + Spring Security + JSP + Apache Tiles + Hibernate + Oracle + SVN + maven
 
 ##### 职责描述
 
@@ -118,12 +118,11 @@ Spring MVC + JSP + Apache Tiles + Hibernate + Oracle + SVN + maven
 
 ### 技能清单
 
-- 编程语言：Java/Javascript
+- 编程语言：熟练Java，Javascript
 - 大数据：Hadoop/Hive
-- Web框架：Spring/SpringMVC/Spring Cloud/Mybatis/Jsoup
-- 数据库：MySQL/Redis/ElasticSearch
-- 前端框架：Bootstrap/jQuery
-- 项目管理：maven
-- 版本管理、文档和部署工具：Git/Swagger/Jenkins/Gitlab CI/DI
+- Java框架：Spring/SpringMVC/Spring Security/Spring Boot/Spring Cloud/Mybatis/Jsoup
+- 项目构建、版本管理、文档和部署工具：maven/Git/Swagger/Jenkins/Gitlab CI/DI
+- 存储：MySQL/Redis/ElasticSearch
+- 前端框架：Bootstrap/jQuery/React
 - 服务器相关：Linux/Shell
 - 性能分析：JConsole/VisualVM
