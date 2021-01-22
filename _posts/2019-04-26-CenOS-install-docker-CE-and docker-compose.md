@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'CentOS install docker CE and docker-compose'
+title: 'centos 安装docker CE'
 description: 'CentOS install docker and docker-compose'
 date: '2019-04-26 14:31:00'
 author: Jast
@@ -42,6 +42,12 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-
 
 ```
 sudo chmod +x /usr/local/bin/docker-compose
+
+# centos7需要将 /usr/local/bin/添加到/etc/profile文件最后
+vim /etc/profile
+export PATH=$PATH:/usr/local/sbin:/usr/local/bin
+
+source /etc/profile
 ```
 
 3. 查询版本
