@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Jast的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Jast的博客">
+<meta property="og:url" content="http://jast90.github.io/page/2/index.html">
+<meta property="og:site_name" content="Jast的博客">
+<meta property="og:locale">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Jast的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Jast的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://jast90.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Spring-AOP-织入及实例化bean过程" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/05/10/Spring-AOP-%E7%BB%87%E5%85%A5%E5%8F%8A%E5%AE%9E%E4%BE%8B%E5%8C%96bean%E8%BF%87%E7%A8%8B/" class="article-date">
+  <time class="dt-published" datetime="2019-05-10T08:54:00.000Z" itemprop="datePublished">2019-05-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/05/10/Spring-AOP-%E7%BB%87%E5%85%A5%E5%8F%8A%E5%AE%9E%E4%BE%8B%E5%8C%96bean%E8%BF%87%E7%A8%8B/">Spring-AOP-织入及实例化bean过程</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/56073810/how-can-i-make-the-aspect-work-on-the-method-aservice-methodb">How can I make the aspect work on the method AService.methodB()?</a></p>
+<p>一个Spring-AOP-织入及实例化bean过程的示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">2019-05-10_14:00:52.437 [restartedMain] DEBUG o.s.a.a.a.AnnotationAwareAspectJAutoProxyCreator - Creating implicit proxy for bean &#39;priceRuleDeviceService&#39; with 0 common interceptors and 2 specific interceptors</span><br><span class="line">2019-05-10_14:00:52.437 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Creating CGLIB proxy: target source is SingletonTargetSource for target object [cn.ubox.mbss.device.server.service.PriceRuleDeviceService@197f7137]</span><br><span class="line">2019-05-10_14:00:52.438 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Unable to apply any optimizations to advised method: public cn.ubox.mbss.common.result.IResult cn.ubox.mbss.device.server.service.PriceRuleDeviceService.changePriceRule(int,int,int)</span><br><span class="line">2019-05-10_14:00:52.438 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Unable to apply any optimizations to advised method: public cn.ubox.mbss.common.result.IResult cn.ubox.mbss.device.server.service.PriceRuleDeviceService.batchSave(java.util.List)</span><br><span class="line">2019-05-10_14:00:52.438 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Unable to apply any optimizations to advised method: public cn.ubox.mbss.common.result.IResult cn.ubox.mbss.device.server.service.PriceRuleDeviceService.savePriceRuleDevice(cn.ubox.mbss.device.entity.PriceRuleDevice)</span><br><span class="line">2019-05-10_14:00:52.439 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Unable to apply any optimizations to advised method: public cn.ubox.mbss.common.result.IResult cn.ubox.mbss.device.server.service.PriceRuleDeviceService.updatePriceRuleDevice(cn.ubox.mbss.device.entity.PriceRuleDevice)</span><br><span class="line">2019-05-10_14:00:52.439 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Unable to apply any optimizations to advised method: public cn.ubox.mbss.common.result.IResult cn.ubox.mbss.device.server.service.PriceRuleDeviceService.deletePriceRuleDevice(int)</span><br><span class="line">2019-05-10_14:00:52.439 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Unable to apply any optimizations to advised method: public cn.ubox.mbss.device.entity.PriceRuleDevice cn.ubox.mbss.device.server.service.PriceRuleDeviceService.queryPriceRuleDeviceById(int)</span><br><span class="line">2019-05-10_14:00:52.439 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Unable to apply any optimizations to advised method: public java.util.List cn.ubox.mbss.device.server.service.PriceRuleDeviceService.queryPriceRuleDeviceByPriceRuleId(int)</span><br><span class="line">2019-05-10_14:00:52.440 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Unable to apply any optimizations to advised method: public boolean cn.ubox.mbss.device.server.service.PriceRuleDeviceService.delPriceRuleDevice(int,int)</span><br><span class="line">2019-05-10_14:00:52.440 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Unable to apply any optimizations to advised method: public boolean cn.ubox.mbss.device.server.service.PriceRuleDeviceService.delPriceRuleDeviceByDeviceId(java.util.List)</span><br><span class="line">2019-05-10_14:00:52.440 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Found &#39;equals&#39; method: public boolean java.lang.Object.equals(java.lang.Object)</span><br><span class="line">2019-05-10_14:00:52.440 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Unable to apply any optimizations to advised method: public java.lang.String java.lang.Object.toString()</span><br><span class="line">2019-05-10_14:00:52.440 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Found &#39;hashCode&#39; method: public native int java.lang.Object.hashCode()</span><br><span class="line">2019-05-10_14:00:52.440 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Unable to apply any optimizations to advised method: protected native java.lang.Object java.lang.Object.clone() throws java.lang.CloneNotSupportedException</span><br><span class="line">2019-05-10_14:00:52.440 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract org.springframework.aop.TargetSource org.springframework.aop.framework.Advised.getTargetSource()</span><br><span class="line">2019-05-10_14:00:52.441 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract java.lang.Class[] org.springframework.aop.framework.Advised.getProxiedInterfaces()</span><br><span class="line">2019-05-10_14:00:52.441 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract boolean org.springframework.aop.framework.Advised.isInterfaceProxied(java.lang.Class)</span><br><span class="line">2019-05-10_14:00:52.441 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract org.springframework.aop.Advisor[] org.springframework.aop.framework.Advised.getAdvisors()</span><br><span class="line">2019-05-10_14:00:52.441 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract void org.springframework.aop.framework.Advised.setTargetSource(org.springframework.aop.TargetSource)</span><br><span class="line">2019-05-10_14:00:52.441 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract void org.springframework.aop.framework.Advised.setExposeProxy(boolean)</span><br><span class="line">2019-05-10_14:00:52.441 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract boolean org.springframework.aop.framework.Advised.isProxyTargetClass()</span><br><span class="line">2019-05-10_14:00:52.441 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract boolean org.springframework.aop.framework.Advised.isExposeProxy()</span><br><span class="line">2019-05-10_14:00:52.441 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract void org.springframework.aop.framework.Advised.removeAdvisor(int) throws org.springframework.aop.framework.AopConfigException</span><br><span class="line">2019-05-10_14:00:52.442 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract boolean org.springframework.aop.framework.Advised.removeAdvisor(org.springframework.aop.Advisor)</span><br><span class="line">2019-05-10_14:00:52.442 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract boolean org.springframework.aop.framework.Advised.replaceAdvisor(org.springframework.aop.Advisor,org.springframework.aop.Advisor) throws org.springframework.aop.framework.AopConfigException</span><br><span class="line">2019-05-10_14:00:52.442 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract void org.springframework.aop.framework.Advised.addAdvice(int,org.aopalliance.aop.Advice) throws org.springframework.aop.framework.AopConfigException</span><br><span class="line">2019-05-10_14:00:52.442 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract void org.springframework.aop.framework.Advised.addAdvice(org.aopalliance.aop.Advice) throws org.springframework.aop.framework.AopConfigException</span><br><span class="line">2019-05-10_14:00:52.442 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract boolean org.springframework.aop.framework.Advised.removeAdvice(org.aopalliance.aop.Advice)</span><br><span class="line">2019-05-10_14:00:52.442 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract java.lang.String org.springframework.aop.framework.Advised.toProxyConfigString()</span><br><span class="line">2019-05-10_14:00:52.442 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract void org.springframework.aop.framework.Advised.setPreFiltered(boolean)</span><br><span class="line">2019-05-10_14:00:52.442 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract boolean org.springframework.aop.framework.Advised.isPreFiltered()</span><br><span class="line">2019-05-10_14:00:52.442 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract void org.springframework.aop.framework.Advised.addAdvisor(org.springframework.aop.Advisor) throws org.springframework.aop.framework.AopConfigException</span><br><span class="line">2019-05-10_14:00:52.442 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract void org.springframework.aop.framework.Advised.addAdvisor(int,org.springframework.aop.Advisor) throws org.springframework.aop.framework.AopConfigException</span><br><span class="line">2019-05-10_14:00:52.443 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract int org.springframework.aop.framework.Advised.indexOf(org.aopalliance.aop.Advice)</span><br><span class="line">2019-05-10_14:00:52.443 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract int org.springframework.aop.framework.Advised.indexOf(org.springframework.aop.Advisor)</span><br><span class="line">2019-05-10_14:00:52.443 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract boolean org.springframework.aop.framework.Advised.isFrozen()</span><br><span class="line">2019-05-10_14:00:52.443 [restartedMain] DEBUG o.s.a.f.CglibAopProxy - Method is declared on Advised interface: public abstract java.lang.Class org.springframework.aop.TargetClassAware.getTargetClass()</span><br><span class="line">2019-05-10_14:00:52.562 [restartedMain] DEBUG o.s.b.f.s.DefaultListableBeanFactory - Finished creating instance of bean &#39;priceRuleDeviceService&#39;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jast90.github.io/2019/05/10/Spring-AOP-%E7%BB%87%E5%85%A5%E5%8F%8A%E5%AE%9E%E4%BE%8B%E5%8C%96bean%E8%BF%87%E7%A8%8B/" data-id="ckkxl9zs6000g1cnhbzccevmt" data-title="Spring-AOP-织入及实例化bean过程" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-搭建Docker私有仓库" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/04/28/%E6%90%AD%E5%BB%BADocker%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/" class="article-date">
+  <time class="dt-published" datetime="2019-04-28T02:48:00.000Z" itemprop="datePublished">2019-04-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/04/28/%E6%90%AD%E5%BB%BADocker%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/">搭建Docker私有仓库</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="使用registry镜像创建私有仓库"><a href="#使用registry镜像创建私有仓库" class="headerlink" title="使用registry镜像创建私有仓库"></a>使用registry镜像创建私有仓库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 5000:5000 -v &#x2F;opt&#x2F;data&#x2F;registry:&#x2F;tmp&#x2F;registry registry</span><br></pre></td></tr></table></figure>
+<h2 id="管理私有仓库"><a href="#管理私有仓库" class="headerlink" title="管理私有仓库"></a>管理私有仓库</h2><p>docker run -it -p 8080:8080 –name registry-web –link docker-registry -e REGISTRY_URL=<a target="_blank" rel="noopener" href="http://docker-registry:5000/v2">http://docker-registry:5000/v2</a> -e REGISTRY_NAME=localhost:5000 hyper/docker-registry-web</p>
+<p>docker run <br>  -d <br>  -e ENV_DOCKER_REGISTRY_HOST=localhost <br>  -e ENV_DOCKER_REGISTRY_PORT=5000 <br>  -p 8080:80 <br>  konradkleine/docker-registry-frontend:v2</p>
+<p>docker run -it -p 8080:8080 –name registry-web –link docker-registry -e REGISTRY_URL=<a target="_blank" rel="noopener" href="http://docker-registry:5000/v2">http://docker-registry:5000/v2</a> -e REGISTRY_NAME=localhost:5000 hyper/docker-registry-web </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jast90.github.io/2019/04/28/%E6%90%AD%E5%BB%BADocker%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/" data-id="ckkxl9zs5000f1cnheahtb39w" data-title="搭建Docker私有仓库" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-CenOS-install-docker-CE-and docker-compose" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/04/26/CenOS-install-docker-CE-and%20docker-compose/" class="article-date">
+  <time class="dt-published" datetime="2019-04-26T06:31:00.000Z" itemprop="datePublished">2019-04-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/04/26/CenOS-install-docker-CE-and%20docker-compose/">centos 安装docker CE</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="centos-安装docker-CE"><a href="#centos-安装docker-CE" class="headerlink" title="centos 安装docker CE"></a>centos 安装docker CE</h2><ol start="0">
+<li><p><a target="_blank" rel="noopener" href="https://docs.docker.com/install/linux/docker-ce/centos/">参考</a>  </p>
+</li>
+<li><p>安装需要的包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y yum-utils \</span><br><span class="line">  device-mapper-persistent-data \</span><br><span class="line">  lvm2</span><br></pre></td></tr></table></figure></li>
+<li><p>添加仓库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum-config-manager \</span><br><span class="line">    --add-repo \</span><br><span class="line">    https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure></li>
+<li><p>安装docker</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install docker-ce docker-ce-cli containerd.io</span><br></pre></td></tr></table></figure></li>
+<li><p>启动  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start docker</span><br></pre></td></tr></table></figure>
+<h2 id="centos-安装docker-compose"><a href="#centos-安装docker-compose" class="headerlink" title="centos 安装docker compose"></a>centos 安装docker compose</h2></li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/docker/compose/releases">下载</a>docker compose </p>
+</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -L &quot;https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)&quot; -o /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>更改执行权限</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod +x /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> centos7需要将 /usr/<span class="built_in">local</span>/bin/添加到/etc/profile文件最后</span></span><br><span class="line">vim /etc/profile</span><br><span class="line">export PATH=$PATH:/usr/local/sbin:/usr/local/bin</span><br><span class="line"></span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>查询版本</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose --version</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jast90.github.io/2019/04/26/CenOS-install-docker-CE-and%20docker-compose/" data-id="ckkxl9zs4000e1cnh4ihs0vk9" data-title="centos 安装docker CE" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-MySQL-function-and-operator" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/04/17/MySQL-function-and-operator/" class="article-date">
+  <time class="dt-published" datetime="2019-04-17T07:14:00.000Z" itemprop="datePublished">2019-04-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/04/17/MySQL-function-and-operator/">MySQL 方法和操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="MySQL-方法和操作"><a href="#MySQL-方法和操作" class="headerlink" title="MySQL 方法和操作"></a>MySQL 方法和操作</h2><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/func-op-summary-ref.html">MySQL 5.7 Function and Operator Reference</a></p>
+<h3 id="方法应用小结"><a href="#方法应用小结" class="headerlink" title="方法应用小结"></a>方法应用小结</h3><h4 id="FIND-IN-SET"><a href="#FIND-IN-SET" class="headerlink" title="FIND_IN_SET()"></a>FIND_IN_SET()</h4><p>语法：FIND_IN_SET(str,strlist)<br>功能：Index (position) of first argument within second argument：返回第一个参数在第二个参数中的索引，从1开始</p>
+<h4 id="BETWEEN-…-AND-…"><a href="#BETWEEN-…-AND-…" class="headerlink" title="BETWEEN … AND …"></a>BETWEEN … AND …</h4><p>语法：expr BETWEEN min AND max<br>功能：Check whether a value is within a range of values（判断一个值是否在范围内，在返回1，不在返回0<br>）</p>
+<h4 id="GROUP-CONCAT"><a href="#GROUP-CONCAT" class="headerlink" title="GROUP_CONCAT()"></a>GROUP_CONCAT()</h4><p>语法：group_concat支持按字段连接、按字段排序，例如：<code>GROUP_CONCAT(a.exam_score_id ORDER BY a.</code>exam_score<code> DESC  SEPARATOR &quot;,&quot;)</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GROUP_CONCAT([DISTINCT] expr [,expr ...]</span><br><span class="line">             [ORDER BY &#123;unsigned_integer | col_name | expr&#125;</span><br><span class="line">                 [ASC | DESC] [,col_name ...]]</span><br><span class="line">             [SEPARATOR str_val])</span><br></pre></td></tr></table></figure>
+<p>功能：This function returns a string result with the concatenated non-NULL values from a group. It returns NULL if there are no non-NULL values. （返回按分组的、连接的非空字符串，如果不存在非NULL值返回NULL）</p>
+<h4 id="SUBSTRING-INDEX"><a href="#SUBSTRING-INDEX" class="headerlink" title="SUBSTRING_INDEX()"></a>SUBSTRING_INDEX()</h4><p>语法：SUBSTRING_INDEX(str,delim,count)<br>功能：Returns the substring from string str before count occurrences of the delimiter delim. If count is positive, everything to the left of the final delimiter (counting from the left) is returned. If count is negative, everything to the right of the final delimiter (counting from the right) is returned. 在分隔符delim的计数出现之前，从字符串str返回子字符串。如果count为正数，则返回最终分隔符左侧的所有内容（从左侧开始计算）。如果count为负数，则返回最终分隔符右侧的所有内容（从右侧开始计算）。</p>
+<h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><ol>
+<li>查询分组下的前几名  </li>
+<li>1 查询某场考试各班前三名成绩的学生信息  </li>
+</ol>
+<p>表结构如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE student(</span><br><span class="line">s_id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">s_name VARCHAR(64),</span><br><span class="line">c_id INT(11) NOT NULL</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">CREATE TABLE exam_score(</span><br><span class="line">exam_score_id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,</span><br><span class="line">exam_id INT(11),</span><br><span class="line">c_id INT(11) NOT NULL,</span><br><span class="line">s_id INT(11) NOT NULL,</span><br><span class="line">exam_score DECIMAL(13,2) NOT NULL</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>方案1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">  c.*,a.exam_score,a.exam_id</span><br><span class="line">FROM</span><br><span class="line">  (SELECT</span><br><span class="line">    *</span><br><span class="line">  FROM</span><br><span class="line">    &#96;exam_score&#96; a,</span><br><span class="line">    (SELECT</span><br><span class="line">      SUBSTRING_INDEX(</span><br><span class="line">        GROUP_CONCAT(</span><br><span class="line">          a.&#96;exam_score_id&#96;</span><br><span class="line">          ORDER BY a.&#96;exam_score&#96; DESC</span><br><span class="line">        ),</span><br><span class="line">        &quot;,&quot;,</span><br><span class="line">        3</span><br><span class="line">      ) AS exam_score_ids</span><br><span class="line">    FROM</span><br><span class="line">      &#96;exam_score&#96; a</span><br><span class="line">      LEFT JOIN &#96;student&#96; b</span><br><span class="line">        ON a.&#96;s_id&#96; &#x3D; b.&#96;s_id&#96;</span><br><span class="line">    GROUP BY b.&#96;c_id&#96;) AS b</span><br><span class="line">  WHERE FIND_IN_SET(</span><br><span class="line">      a.&#96;exam_score_id&#96;,</span><br><span class="line">      b.exam_score_ids</span><br><span class="line">    )) AS a</span><br><span class="line">  LEFT JOIN &#96;student&#96; c ON a.s_id &#x3D; c.&#96;s_id&#96;</span><br><span class="line">ORDER BY c.&#96;c_id&#96;,</span><br><span class="line">  a.&#96;exam_score&#96; DESC</span><br></pre></td></tr></table></figure>
+<p>方案2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> SELECT</span><br><span class="line">  a.*</span><br><span class="line">FROM</span><br><span class="line">  &#96;exam_score&#96; a,</span><br><span class="line">  (SELECT</span><br><span class="line">    GROUP_CONCAT(</span><br><span class="line">      a.exam_score_id</span><br><span class="line">      ORDER BY a.&#96;exam_score&#96; DESC SEPARATOR &quot;,&quot;</span><br><span class="line">    ) AS exam_score_ids,</span><br><span class="line">    b.c_id AS c_id</span><br><span class="line">  FROM</span><br><span class="line">    &#96;exam_score&#96; a</span><br><span class="line">    LEFT JOIN &#96;student&#96; b</span><br><span class="line">      ON a.&#96;s_id&#96; &#x3D; b.&#96;s_id&#96;</span><br><span class="line">  GROUP BY b.&#96;c_id&#96;) AS b</span><br><span class="line">WHERE FIND_IN_SET(</span><br><span class="line">    a.&#96;exam_score_id&#96;,</span><br><span class="line">    b.exam_score_ids</span><br><span class="line">  ) BETWEEN 1</span><br><span class="line">  AND 3</span><br><span class="line">ORDER BY b.c_id ASC,</span><br><span class="line">  a.&#96;exam_score&#96; DESC;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jast90.github.io/2019/04/17/MySQL-function-and-operator/" data-id="ckkxl9zs3000c1cnhfwcs16g8" data-title="MySQL 方法和操作" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Java-HashMap" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/11/30/Java-HashMap/" class="article-date">
+  <time class="dt-published" datetime="2018-11-30T08:40:00.000Z" itemprop="datePublished">2018-11-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/11/30/Java-HashMap/">Java HashMap涉及的数据结构及实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Java-HashMap涉及的数据结构及实现"><a href="#Java-HashMap涉及的数据结构及实现" class="headerlink" title="Java HashMap涉及的数据结构及实现"></a>Java HashMap涉及的数据结构及实现</h1><h2 id="提供的功能"><a href="#提供的功能" class="headerlink" title="提供的功能"></a>提供的功能</h2><ul>
+<li>基于哈希表实现的Map;</li>
+<li>非线程安全的Map实现；</li>
+<li>键和值都可以为null(因为有处理null的情形)；</li>
+<li>基本操作<code>get()</code>和<code>put()</code>的时间消耗是固定的；</li>
+<li>数据存储结构会随着HashMap的数量而变换成不同的数据结构。</li>
+</ul>
+<h2 id="涉及到的概念"><a href="#涉及到的概念" class="headerlink" title="涉及到的概念"></a>涉及到的概念</h2><ul>
+<li>默认初始化容量</li>
+<li>最大容量</li>
+<li>默认的负载系数（load factor）</li>
+<li>树形化的阈（yù）值</li>
+<li>非树形化的阈值</li>
+<li>最小树形化的容量</li>
+</ul>
+<h2 id="涉及的基本概念"><a href="#涉及的基本概念" class="headerlink" title="涉及的基本概念"></a>涉及的基本概念</h2><ul>
+<li>单链表</li>
+<li>红-黑树</li>
+<li>链表、红-黑树互转</li>
+</ul>
+<h2 id="加入一个元素的过程"><a href="#加入一个元素的过程" class="headerlink" title="加入一个元素的过程"></a>加入一个元素的过程</h2><p>1、判断哈希表是否为空，是空的话先初始化哈希表</p>
+<p>2、根据key算出该key在哈希表中存放的位子下标，判断该位置上是否存在结点</p>
+<p>2.1、不存在的话就创建一个单链表结点存放该键值对</p>
+<p>2.2、存在的话就判断已有结点的键是否是相同</p>
+<p>2.2.1、键相同时，就把原结点取出，更新新值并返回旧值</p>
+<p>2.2.2、键不相同时，即产生哈希冲突，判断当前结点是否是红黑树结点</p>
+<p>2.2.2.1、是红黑树结点的话，将键值对存入相应的树结点</p>
+<p>2.2.2.2、不是红黑树结点，遍历链表，判断键是否存在</p>
+<p>2.2.2.2.1、键存在的话就取出旧结点，更新新值并返回旧值</p>
+<p>2.2.2.2.2、键不存在，新建单链表结点链接到到链表尾结点，并判断该链表的结点数量是否达到链表转换成树的阈值了，是的话将该链表转换成很黑树存储</p>
+<p>2.2.2.3、元素加入后，判断map中键值对个数是否达到元素数量的阈值，达到的话就rehash一次</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jast90.github.io/2018/11/30/Java-HashMap/" data-id="ckkxl9zs0000a1cnh07a23eer" data-title="Java HashMap涉及的数据结构及实现" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Java-Hashtable" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/11/28/Java-Hashtable/" class="article-date">
+  <time class="dt-published" datetime="2018-11-28T03:19:00.000Z" itemprop="datePublished">2018-11-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/11/28/Java-Hashtable/">Java Hashtable 源码分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Hashtable-提供的功能"><a href="#Hashtable-提供的功能" class="headerlink" title="Hashtable 提供的功能"></a>Hashtable 提供的功能</h1><ul>
+<li>Hashtable是一个线程安全的Map，其线程安全是通过在各个方法上加上synchronized关键字实现的，即：该类只能被一个线程所使用，其他调用该类时会阻塞等待;</li>
+<li>实现了哈希表，映射key到value；</li>
+<li>key和value都不能为null（因为需要调用hashCode()方法，如果为null的话就会抛出NPE），key类型必须实现hashCode()和equals()方法；</li>
+<li>put(K k,V v); </li>
+<li>get(K k,V v);</li>
+<li><del>Hashtable没有实现hash冲突的解决方案，冲突需要按自己的逻辑实现，它只提供了哈希表自动扩容的功能；</del></li>
+<li>出现hash冲突时，采用单向链表来储存冲突的元素。</li>
+</ul>
+<h1 id="Hashtable-涉及到的概念"><a href="#Hashtable-涉及到的概念" class="headerlink" title="Hashtable 涉及到的概念"></a>Hashtable 涉及到的概念</h1><ul>
+<li>初始化容量：key数组初始长度，默认值是11</li>
+<li>负载系数（load factor）：即到达容量的百分比时，哈希表就会重新hash到一个新容量的哈希表中,取值范围是：&lt;1.0 的百分数 默认取值是.75(75%，当加入的键值对数量达到初始容量的75%时，继续加入的话会重新hash到一个新的容量的哈希表中)</li>
+<li>阈(yù)值：threshold=初始化容量*0.75和Integer.MAX_VALUE-8（注：Integer.MAX_VALUE=0x7FFFFFFF）<br>  中较小值</li>
+<li>重新Hash：加入元素时，当数组大小大于等于阈值时，key数组的容量会左移2位后+1即：原容量*4+1，然后按新的容量hash后放入新的数组中。</li>
+<li>哈希函数：(key.hashCode() &amp; 0x7FFFFFFF) % key数组现在的长度</li>
+</ul>
+<h1 id="Hashtable常用方法分析"><a href="#Hashtable常用方法分析" class="headerlink" title="Hashtable常用方法分析"></a>Hashtable常用方法分析</h1><ul>
+<li>put(K k,V v);<br>  添加元素到哈希表时，判断元素是否存在，如果存在（key的hash相同并且值也相同）的话，就会覆盖掉原来的元素，并返回原来的值；如果不存在的话，就会直接新建一个元素，若产生hash冲突则将旧元素链接到新元素的尾部。</li>
+<li>get(K k);<br>  获取元素时，先根据key的hash获取到对应key数组的下标，获取对应的元素（因为数组元素的值是一个单链表，所以如果当前的值不匹配时就需要判断链表的下一个元素）。</li>
+</ul>
+<h1 id="处理-Hash冲突"><a href="#处理-Hash冲突" class="headerlink" title="处理 Hash冲突"></a>处理 Hash冲突</h1><p>Hashtable 处理 Hash冲突 时通过单链表。。</p>
+<h1 id="涉及的基本概念"><a href="#涉及的基本概念" class="headerlink" title="涉及的基本概念"></a>涉及的基本概念</h1><ul>
+<li>位运算</li>
+<li>数组</li>
+<li>哈希表</li>
+<li>单链表</li>
+<li>Java transient 关键字原理</li>
+<li>Java 序列化、反序列化以及自定义序列化、反序列话逻辑（writeObject(ObjectOutputStream o)和readObject(ObjectInputStream i)）</li>
+</ul>
+<h1 id="存在未理解之处"><a href="#存在未理解之处" class="headerlink" title="存在未理解之处"></a>存在未理解之处</h1><p>Hashtable的count字段是什么时候初始化的？从赋值来看是通过readObject()方法来实现的。但是具体实现需要回去取研读下《Java编程思想》序列化章节内容。</p>
+<pre><code>private transient int count;
+</code></pre>
+<h1 id="未理解之处的解答"><a href="#未理解之处的解答" class="headerlink" title="未理解之处的解答"></a>未理解之处的解答</h1><ul>
+<li>Hashtable的count字段是什么时候初始化的？因为该变量是类变量编译的时候会自动赋值。可以总结下Java各种类型的变量。</li>
+</ul>
+<h1 id="模拟hash冲突"><a href="#模拟hash冲突" class="headerlink" title="模拟hash冲突"></a>模拟hash冲突</h1><p>可以根据hash函数<code>(key.hashCode() &amp; 0x7FFFFFFF) % key数组现在的长度</code>来模拟hash冲突，只要key的hashCode是相同但是又不equals()的就是Hash冲突。如下实例：</p>
+<pre><code>public class MyKey implements Serializable &#123;
+    private int i;
+
+    public MyKey(int i) &#123;
+        this.i = i;
+    &#125;
+
+    @Override
+    public int hashCode() &#123;
+        if (i % 2 == 0) &#123;
+            return 1;
+        &#125; else &#123;
+            return 2;
+        &#125;
+    &#125;
+
+&#125;
+</code></pre>
+<h1 id="Hashtable处理hash冲突"><a href="#Hashtable处理hash冲突" class="headerlink" title="Hashtable处理hash冲突"></a>Hashtable处理hash冲突</h1><p>如下实例：</p>
+<pre><code>public static void main(String[] args) &#123;
+    Hashtable&lt;MyKey, Integer&gt; map = new Hashtable&lt;&gt;();
+    for (int i = 0; i &lt; 11; i++) &#123;
+        map.put(new MyKey(i), i);
+    &#125;
+    map.get(new MyKey(1));
+&#125;
+</code></pre>
+<h1 id="如何在IDEA调试模式下查看储存结构？"><a href="#如何在IDEA调试模式下查看储存结构？" class="headerlink" title="如何在IDEA调试模式下查看储存结构？"></a>如何在IDEA调试模式下查看储存结构？</h1><p>Hashtable在IDEA下的默认视图：</p>
+<p><img src="https://raw.githubusercontent.com/jast90/jast90.github.io/master/img/Java-Hashtable-data-structure-default-view.png" alt="Java-Hashtable-data-structure-default-view"></p>
+<p>如何查看对象视图？如下图操作：</p>
+<p><img src="https://raw.githubusercontent.com/jast90/jast90.github.io/master//img/Java-Hashtable-data-structure.png" alt="Java-Hashtable-data-structure"></p>
+<p>对象视图如下</p>
+<p><img src="https://raw.githubusercontent.com/jast90/jast90.github.io/master//img/Java-Hashtable-data-structure-object-view.png" alt="Java-Hashtable-data-structure-object-view"></p>
+<p>从如上对象视图可以看出Hashtable的table字段的具体存储方式：<br>table数组中有两个元素，一个是<code>MyKey.i=10</code>，一个是<code>Mykey.i=9</code>,按如上查看对象视图的方法查看这两个元素的对象视图查看<code>java.util.Hashtable.Entry#next</code>属性，可以看到<code>MyKey.i=10</code>的next属性值是<code>MyKey.i=8</code>…<br>各元素的具体结构如下：</p>
+<pre><code>MyKey.i=10.next -&gt; MyKey.i=8
+MyKey.i=8.next -&gt; MyKey.i=0
+MyKey.i=0.next -&gt; MyKey.i=2
+MyKey.i=2.next -&gt; MyKey.i=4
+MyKey.i=4.next -&gt; MyKey.i=6
+MyKey.i=6.next -&gt; null
+
+
+MyKey.i=9.next -&gt; MyKey.i=1
+MyKey.i=1.next -&gt; MyKey.i=3
+MyKey.i=3.next -&gt; MyKey.i=5
+MyKey.i=5.next -&gt; MyKey.i=7
+MyKey.i=7.next -&gt; null
+</code></pre>
+<p>为什么顺序不是按加入的顺序的呢，而是一部分到过来的？<br>因为Hashtable的key数组默认大小是11，当加入11个元素时，会自动扩容，在加入第8个元素时会rehash一次，rehash时是将新哈希表中的元素作为后面加入元素的next的，所有就会出现部分元素顺序相反。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jast90.github.io/2018/11/28/Java-Hashtable/" data-id="ckkxl9zrz00091cnh69f6d6tg" data-title="Java Hashtable 源码分析" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Think-in-Java-Timer" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/11/19/Think-in-Java-Timer/" class="article-date">
+  <time class="dt-published" datetime="2018-11-19T08:54:00.000Z" itemprop="datePublished">2018-11-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/11/19/Think-in-Java-Timer/">Java Timer 源码分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="1-Java-Timer实现功能、原理分析"><a href="#1-Java-Timer实现功能、原理分析" class="headerlink" title="1  Java Timer实现功能、原理分析"></a>1  Java Timer实现功能、原理分析</h1><h2 id="1-1-功能"><a href="#1-1-功能" class="headerlink" title="1.1 功能"></a>1.1 功能</h2><ul>
+<li>延时、单次执行任务（java.util.Timer#schedule(java.util.TimerTask, long)，单次执行，周期传0）</li>
+<li>指定时间、单次执行任务（java.util.Timer#schedule(java.util.TimerTask, java.util.Date)）</li>
+<li>延时、周期性执行任务（java.util.Timer#schedule(java.util.TimerTask, long, long)）</li>
+<li>指定时间、周期性执行任务（java.util.Timer#schedule(java.util.TimerTask, java.util.Date, long)）</li>
+<li>延时、固定频率周期性执行任务（java.util.Timer#scheduleAtFixedRate(java.util.TimerTask, long, long)，周期的取值为正数）</li>
+<li>指定时间、周期性执行任务（java.util.Timer#scheduleAtFixedRate(java.util.TimerTask, java.util.Date, long)，周期的取值为正数）</li>
+<li>通用执行任务方法（根据传入周期来确定定时器任务的执行时间；如果传入的周期是负数的话，是相对于系统当前时间的，非负数的话是相对于任务的执行时间的即固定频率是相对于执行时间的）</li>
+</ul>
+<h3 id="1-1-1-周期性执行任务和固定频率周期性执行任务的区别"><a href="#1-1-1-周期性执行任务和固定频率周期性执行任务的区别" class="headerlink" title="1.1.1 周期性执行任务和固定频率周期性执行任务的区别"></a>1.1.1 周期性执行任务和固定频率周期性执行任务的区别</h3><p>周期性执行任务是要考虑任务的执行时间的(任务的下一个执行时间是用调度时系统时间-)；<br>固定频率周期性执行任务是不考虑任务执行时间的；<br>可以参考<code>java.util.TaskQueue#rescheduleMin()</code>方法调用的地方，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">queue.rescheduleMin(</span><br><span class="line">	task.period&lt;0 ? currentTime   - task.period</span><br><span class="line">		: executionTime + task.period);</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-涉及到的类"><a href="#1-2-涉及到的类" class="headerlink" title="1.2 涉及到的类"></a>1.2 涉及到的类</h2><h3 id="1-2-1-主要类"><a href="#1-2-1-主要类" class="headerlink" title="1.2.1 主要类"></a>1.2.1 主要类</h3><ul>
+<li>java.util.Timer<br>  初始化定时任务存放队列；<br>  初始化定时调度线程并启动；<br>  安排（计划）定时任务（安排完后需要唤醒定时调度线程，运用了生产者-消费者模式）；<br>  维护任务的状态。</li>
+<li>java.util.TimerTask<br>  同步锁；<br>  任务状态：未使用的、已调度、已执行、已取消；<br>  任务执行间隔时间；<br>  定义具体的执行的任务；<br>  取消该任务。  <h3 id="1-2-2-辅助类"><a href="#1-2-2-辅助类" class="headerlink" title="1.2.2 辅助类"></a>1.2.2 辅助类</h3></li>
+<li>java.util.TimerThread<br>  定时调度线程，通过死循环及生产者消费者模式实现，当任务队列为空时跳出死循环，用于消费定时器生产出的定时任务，并维护定时任务执行、修改下次执行时间、移除。</li>
+<li>java.util.TaskQueue<br>  任务队列，底层是数组实现的，当数组数量达到数组长度数-1时继续添加任务会使用数组复制功能来复制到一个长度是现在2倍的数组中；<br>  提供获取执行时间最小的任务和执行时间第n小的功能；<br>  提供移除执行时间最小的任务和执行时间第n小的功能；<br>  数组中个任务往前移动的功能；<br>  设置执行时间最小任务下次执行时间；<br>  清空队列任务。</li>
+</ul>
+<h2 id="1-3-涉及到的概念"><a href="#1-3-涉及到的概念" class="headerlink" title="1.3 涉及到的概念"></a>1.3 涉及到的概念</h2><h3 id="1-3-1-数据结构"><a href="#1-3-1-数据结构" class="headerlink" title="1.3.1 数据结构"></a>1.3.1 数据结构</h3><ul>
+<li>动态数据</li>
+<li>队列<h3 id="1-3-2-操作系统概念"><a href="#1-3-2-操作系统概念" class="headerlink" title="1.3.2 操作系统概念"></a>1.3.2 操作系统概念</h3></li>
+<li>生产者-消费者问题<h3 id="1-3-3-Java-并发机制"><a href="#1-3-3-Java-并发机制" class="headerlink" title="1.3.3 Java 并发机制"></a>1.3.3 Java 并发机制</h3></li>
+<li>锁机制</li>
+</ul>
+<h2 id="任务执行所需时间、调度时间和下个执行时间区分"><a href="#任务执行所需时间、调度时间和下个执行时间区分" class="headerlink" title="任务执行所需时间、调度时间和下个执行时间区分"></a>任务执行所需时间、调度时间和下个执行时间区分</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jast90.github.io/2018/11/19/Think-in-Java-Timer/" data-id="ckkxl9zry00081cnh3rqb051d" data-title="Java Timer 源码分析" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Java-class-loader" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/11/19/Java-class-loader/" class="article-date">
+  <time class="dt-published" datetime="2018-11-19T08:54:00.000Z" itemprop="datePublished">2018-11-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/11/19/Java-class-loader/">Java 类加载</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="类在什么时候被加载？"><a href="#类在什么时候被加载？" class="headerlink" title="类在什么时候被加载？"></a>类在什么时候被加载？</h1><p>类初始化的时候一定会被加载，类初始化的情形有：  </p>
+<ol>
+<li>new,读取、设置静态变量、调用静态方法</li>
+<li>java.lang.reflect包的方法</li>
+<li>加载一个类时，父类还未加载时，先加载父类</li>
+<li>虚拟机启动时，需要指定一个要执行的主类，先加载这个主类</li>
+<li>当使用JDK1.7的动态语言支持时，如果一个java.lang.invoke.MethodHandle实例最后的解析结果REF_getStatic,REF_putStatic.REF_invokeStatic的方法句柄，并且这个方法句柄最对应的类没有进行过初始化，则需要先触发其初始化。</li>
+</ol>
+<h1 id="什么是类加载器？"><a href="#什么是类加载器？" class="headerlink" title="什么是类加载器？"></a>什么是类加载器？</h1><p>就是在特定的目录中查找class文件，并根据class文件创建Class对象。</p>
+<h1 id="默认加载器如何加载类？如何使用自定义类加载器加载类？"><a href="#默认加载器如何加载类？如何使用自定义类加载器加载类？" class="headerlink" title="默认加载器如何加载类？如何使用自定义类加载器加载类？"></a>默认加载器如何加载类？如何使用自定义类加载器加载类？</h1><p>启动类加载器（Bootstrap ClassLoader）：会在<JAVA_HOME>\lib目录中查找jar包中的class文件并创建Class对象；<br>扩展类加载器（Extension Classloader）：会在<JAVA_HOME>\lib\ext目录中查找jar包中的class文件并创建Class对象；<br>应用程序类加载器（Application Classloader）：负责加载用户路径（ClassPath）上所指定的jar包中的class文件并创建Class对象。</p>
+<h1 id="何为类加载器的双亲委派模型？"><a href="#何为类加载器的双亲委派模型？" class="headerlink" title="何为类加载器的双亲委派模型？"></a>何为类加载器的双亲委派模型？</h1><p>一个类加载器收到了类加载的请求，都是先委派给父 类加载器，每一层都是如此，因此所有的加载请求最终都会到达启动类加载器，只有当父类加载器反馈自己无法完成该类加载时，子类加载器才会自己尝试加载，如果都没有加载到则抛出异常。<br>正常的流程就是：应用程序类加载器收到加载类请求，委托给扩展类加载器加载类；委托给扩展类加载器收到加载类请求，委托给启动器加载器；启动器加载器能够加载直接加载，不能加载交给扩展类加载器加载；扩展类加载器加载能够加载就直接加载，扩展类加载器加载不能加载交给应用程序类加载器加载；</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jast90.github.io/2018/11/19/Java-class-loader/" data-id="ckkxl9zs2000b1cnh0iijghty" data-title="Java 类加载" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Putty-login-google-cloud-vm" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/11/19/Putty-login-google-cloud-vm/" class="article-date">
+  <time class="dt-published" datetime="2018-11-19T08:54:00.000Z" itemprop="datePublished">2018-11-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/11/19/Putty-login-google-cloud-vm/">PuTTy login-google-cloud-vm</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="添加vm用户"><a href="#添加vm用户" class="headerlink" title="添加vm用户"></a>添加vm用户</h2><p><a target="_blank" rel="noopener" href="https://console.cloud.google.com/compute/metadata/sshKeys?project=jast-ssr">元数据 &gt; SSH密钥</a> &gt; 修改<br>添加SSH public key</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jast90.github.io/2018/11/19/Putty-login-google-cloud-vm/" data-id="ckkxl9zs4000d1cnhhfokc7ql" data-title="PuTTy login-google-cloud-vm" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-externalized-configuration" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2018/08/03/externalized-configuration/" class="article-date">
+  <time class="dt-published" datetime="2018-08-03T06:15:00.000Z" itemprop="datePublished">2018-08-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2018/08/03/externalized-configuration/">外化配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="外化配置"><a href="#外化配置" class="headerlink" title="外化配置"></a>外化配置</h3><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html">Externalized Configuration</a>  </li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jast90.github.io/2018/08/03/externalized-configuration/" data-id="ckkxl9zrx00071cnhb4w3glnj" data-title="外化配置" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&laquo; zurück</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">weiter &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/05/16/2020-5-16-%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E3%80%81%E7%A9%BF%E9%80%8F%E3%80%81%E5%87%BB%E7%A9%BF/">缓存雪崩、穿透、击穿</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/07/2020-5-7-heap-sort/">堆排序</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/26/Think-in-Java-ThreadPoolExecutor/">Java ThreadPoolExecutor 源码分析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/02/Think-in-cglib-proxy/">Cglib 动态代理使用及深入</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/02/Kubernetes-install-and-nginx-example/">kubernetes minikube安装和运行nginx实例</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
