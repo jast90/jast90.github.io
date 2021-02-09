@@ -1,246 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>bash 测试 | Jast的博客</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="linux,bash test">
-<meta property="og:type" content="article">
-<meta property="og:title" content="bash 测试">
-<meta property="og:url" content="http://jast90.github.io/2018/07/26/Linux-bash-tests/index.html">
-<meta property="og:site_name" content="Jast的博客">
-<meta property="og:description" content="linux,bash test">
-<meta property="og:locale">
-<meta property="article:published_time" content="2018-07-26T02:59:00.000Z">
-<meta property="article:modified_time" content="2021-02-09T05:54:02.830Z">
-<meta property="article:author" content="John Doe">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Jast的博客" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
-<meta name="generator" content="Hexo 5.3.0"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Jast的博客</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://jast90.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main"><article id="post-Linux-bash-tests" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2018/07/26/Linux-bash-tests/" class="article-date">
-  <time class="dt-published" datetime="2018-07-26T02:59:00.000Z" itemprop="datePublished">2018-07-26</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      bash 测试
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="Bash-测试"><a href="#Bash-测试" class="headerlink" title="Bash 测试"></a>Bash 测试</h3><h4 id="1-使用方式"><a href="#1-使用方式" class="headerlink" title="1.使用方式"></a>1.使用方式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#方式一</span><br><span class="line">test 表达式</span><br><span class="line">#方式二</span><br><span class="line">[ 表达式 ] #表达式前后需要空格和[、]隔开</span><br></pre></td></tr></table></figure>
-<h4 id="2-文件测试"><a href="#2-文件测试" class="headerlink" title="2.文件测试"></a>2.文件测试</h4><h5 id="2-1-linux文件类型"><a href="#2-1-linux文件类型" class="headerlink" title="2.1. linux文件类型"></a>2.1. linux文件类型</h5><ul>
-<li>普通文件（-）</li>
-<li>目录（d）</li>
-<li>字符设备文件（c）</li>
-<li>块设备文件（b）</li>
-<li>套接口文件（s）</li>
-<li>符号链接文件（l）  </li>
-</ul>
-<p>参考<a target="_blank" rel="noopener" href="http://os.51cto.com/art/201003/185612.htm">Linux文件类型全解析</a>    </p>
-<h5 id="2-2-文件测试符"><a href="#2-2-文件测试符" class="headerlink" title="2.2. 文件测试符"></a>2.2. 文件测试符</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">-b 文件 		#文件存在且是块文件时返回true,否则返回false</span><br><span class="line">-c 文件 		#文件存在且是字符文件时返回true,否则放回false</span><br><span class="line">-d 文件 		#文件存在且是目录时返回true,否则放回false</span><br><span class="line">-e 文件 		#文件或目录存在时返回true,否则放回false</span><br><span class="line">-f 文件 		#文件存在且是普通文件时返回true,否则放回false</span><br><span class="line">-x 文件 		#文件存在且是可执行文件时返回true,否则放回false</span><br><span class="line">-w 文件 		#文件存在且是可写文件时返回true,否则放回false</span><br><span class="line">-r 文件		 	#文件存在且是可读文件时返回true,否则放回false</span><br><span class="line">-l 文件 		#文件存在且是链接文件时返回true,否则放回false</span><br><span class="line">-p 文件 		#文件存在且是管道文件时返回true,否则放回false</span><br><span class="line">-s 文件 		#文件存在且是大小不为0时返回true,否则放回false</span><br><span class="line">-S 文件 		#文件存在且是socket文件时返回true,否则放回false</span><br><span class="line">-g 文件 		#文件存在且设置了SGID时返回true,否则放回false</span><br><span class="line">-u 文件 		#文件存在且设置了SUID时返回true,否则放回false</span><br><span class="line">-k 文件 		#文件存在且设置了sticky属性时返回true,否则放回false</span><br><span class="line">-G 文件 		#文件存在且属于有效的用户组时返回true,否则放回false</span><br><span class="line">-O 文件 		#文件存在且属于有效的用户时返回true,否则放回false</span><br><span class="line">文件1 -nt 文件2 #当文件1比文件2新时返回true,否则放回false。nt：是newer than的首字母缩写</span><br><span class="line">文件1 -ot 文件2 #当文件1比文件2旧时返回true,否则放回false。ot：是older than的首字母缩写</span><br></pre></td></tr></table></figure>
-<h4 id="3-字符串测试"><a href="#3-字符串测试" class="headerlink" title="3. 字符串测试"></a>3. 字符串测试</h4><h5 id="3-1-字符串测试符"><a href="#3-1-字符串测试符" class="headerlink" title="3.1 字符串测试符"></a>3.1 字符串测试符</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-z &quot;string&quot; 			# 字符串string为空时返回true，否则返回false</span><br><span class="line">-n &quot;string&quot; 			# 字符串string非空时返回true，否则返回false</span><br><span class="line">&quot;string1&quot;&#x3D;&quot;string2&quot; 	# 字符串string1和string2相同时返回true，否则返回false</span><br><span class="line">&quot;string1&quot;!&#x3D;&quot;string2&quot; 	# 字符串string1和string2不相同时返回true，否则返回false</span><br><span class="line">&quot;string1&quot;&gt;&quot;string2&quot; 	# 按照字典排序，字符串string1排在string2之前时返回true，否则返回false</span><br><span class="line">&quot;string1&quot;&lt;&quot;string2&quot;	 	# 按照字典排序，字符串string1排在string2之后时返回true，否则返回false</span><br></pre></td></tr></table></figure>
-<h4 id="4-整数比较"><a href="#4-整数比较" class="headerlink" title="4. 整数比较"></a>4. 整数比较</h4><h5 id="4-1-整数测试符"><a href="#4-1-整数测试符" class="headerlink" title="4.1. 整数测试符"></a>4.1. 整数测试符</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">num1 -eq num2 # 如果num1等于num2时返回true，否则返回false。eq:equal </span><br><span class="line">num1 -gt num2 # 如果num1大于num2时返回true，否则返回false。gt:great than </span><br><span class="line">num1 -lt num2 # 如果num1小于num2时返回true，否则返回false。lq:less than </span><br><span class="line">num1 -ge num2 # 如果num1大于等于num2时返回true，否则返回false。ge:great than </span><br><span class="line">num1 -le num2 # 如果num1小于等于num2时返回true，否则返回false。le:less than</span><br><span class="line">num1 -ne num2 # 如果num1不等于num2时返回true，否则返回false。ne:not equal </span><br></pre></td></tr></table></figure>
-<h4 id="5-逻辑测试"><a href="#5-逻辑测试" class="headerlink" title="5. 逻辑测试"></a>5. 逻辑测试</h4><h5 id="5-1-逻辑测试符"><a href="#5-1-逻辑测试符" class="headerlink" title="5.1. 逻辑测试符"></a>5.1. 逻辑测试符</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">! 表达式 			#逻辑非，取反运算，如果表达式为true，返回false,否则返回true 。</span><br><span class="line">表达式1 -a 表达式2	#表达式1和表达式2同时为true时，返回true,否则返回false。a: and</span><br><span class="line">表达式1 -o 表达式2	#表达式1和表达式2有一个为true时，返回true,否则返回false。a: or</span><br></pre></td></tr></table></figure>
-<p>以上符号应用在[]中，如：[-e /test -o -e /ad]  </p>
-<h5 id="5-2-逻辑运算符"><a href="#5-2-逻辑运算符" class="headerlink" title="5.2. 逻辑运算符"></a>5.2. 逻辑运算符</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">! 	# 逻辑非</span><br><span class="line">&amp;&amp;	# 逻辑与</span><br><span class="line">||	# 逻辑或</span><br></pre></td></tr></table></figure>
-<p>以上符号应用在多个[]之间，如：[-e /test] || [-e /ad]</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://jast90.github.io/2018/07/26/Linux-bash-tests/" data-id="ckkxl9zrw00061cnhajr8bt0p" data-title="bash 测试" class="article-share-link">Teilen</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/08/03/externalized-configuration/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Neuer</strong>
-      <div class="article-nav-title">
-        
-          外化配置
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/07/25/think-in-linux-bash-array/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Älter</strong>
-      <div class="article-nav-title">bash 数组 理解</div>
-    </a>
-  
-</nav>
-
-  
-</article>
+{% extends '_layout.swig' %}
+{% import '_macro/post.swig' as post_template %}
+{% import '_macro/sidebar.swig' as sidebar_template %}
 
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
+{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-  
-    
+{% block page_class %}page-post-detail{% endblock %}
 
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li></ul>
+
+{% block content %}
+
+  <div id="posts" class="posts-expand">
+    {{ post_template.render(page) }}
+
+    <div class="post-spread">
+      {% if theme.jiathis %}
+        {% include '_partials/share/jiathis.swig' %}
+      {% elseif theme.baidushare %}
+        {% include '_partials/share/baidushare.swig' %}
+      {% elseif theme.add_this_id %}
+        {% include '_partials/share/add-this.swig' %}
+      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
+        {% include '_partials/share/duoshuo_share.swig' %}
+      {% endif %}
     </div>
   </div>
 
+{% endblock %}
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2020/05/16/2020-5-16-%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E3%80%81%E7%A9%BF%E9%80%8F%E3%80%81%E5%87%BB%E7%A9%BF/">缓存雪崩、穿透、击穿</a>
-          </li>
-        
-          <li>
-            <a href="/2020/05/07/2020-5-7-heap-sort/">堆排序</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/26/Think-in-Java-ThreadPoolExecutor/">Java ThreadPoolExecutor 源码分析</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/02/Think-in-cglib-proxy/">Cglib 动态代理使用及深入</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/02/Kubernetes-install-and-nginx-example/">kubernetes minikube安装和运行nginx实例</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
+{% block sidebar %}
+  {{ sidebar_template.render(true) }}
+{% endblock %}
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
-</body>
-</html>
+{% block script_extra %}
+  {% include '_scripts/pages/post-details.swig' %}
+{% endblock %}

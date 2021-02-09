@@ -1,349 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  
-  <title>Gitlab CI/CD 流水线配置参考 | Jast的博客</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Gitlab CI&#x2F;CD 流水线配置参考">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Gitlab CI&#x2F;CD 流水线配置参考">
-<meta property="og:url" content="http://jast90.github.io/2019/07/25/gitlab-ci-file-usage/index.html">
-<meta property="og:site_name" content="Jast的博客">
-<meta property="og:description" content="Gitlab CI&#x2F;CD 流水线配置参考">
-<meta property="og:locale">
-<meta property="article:published_time" content="2019-07-25T07:41:00.000Z">
-<meta property="article:modified_time" content="2021-02-09T05:54:02.830Z">
-<meta property="article:author" content="John Doe">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Jast的博客" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
-
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
-
-  
-<meta name="generator" content="Hexo 5.3.0"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Jast的博客</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://jast90.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main"><article id="post-gitlab-ci-file-usage" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2019/07/25/gitlab-ci-file-usage/" class="article-date">
-  <time class="dt-published" datetime="2019-07-25T07:41:00.000Z" itemprop="datePublished">2019-07-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="p-name article-title" itemprop="headline name">
-      Gitlab CI/CD 流水线配置参考
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>.gitlab-ci.yml文件定义了流水线的结构和顺序，并确定：</p>
-<ul>
-<li>使用GitLab Runner执行什么。</li>
-<li>遇到特定条件时要做出哪些决定。例如，当进程成功或失败时。</li>
-</ul>
-<h3 id="不可用的jobs名称"><a href="#不可用的jobs名称" class="headerlink" title="不可用的jobs名称"></a>不可用的jobs名称</h3><p>每个作业必须具有唯一的名称，但有一些保留的关键字不能用作作业名称：</p>
-<ul>
-<li>image</li>
-<li>services</li>
-<li>stages</li>
-<li>types</li>
-<li>before_script</li>
-<li>after_script</li>
-<li>variables</li>
-<li>cache</li>
-</ul>
-<h3 id="配置参数"><a href="#配置参数" class="headerlink" title="配置参数"></a>配置参数</h3><table>
-<thead>
-<tr>
-<th>参数</th>
-<th>作用描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>script</td>
-<td>script是job所需要的唯一必须的参数。它是一个由Runner执行的shell脚本</td>
-</tr>
-<tr>
-<td>image</td>
-<td>用于指定用于job的Docker镜像。</td>
-</tr>
-<tr>
-<td>services</td>
-<td>用于指定服务的Docker镜像，链接到镜像中指定的基本镜像。</td>
-</tr>
-<tr>
-<td>before_script</td>
-<td>用于定义应在所有作业（包括部署作业）之前运行但在恢复工件之后运行的命令。这可以是数组或多行字符串。</td>
-</tr>
-<tr>
-<td>after_script</td>
-<td>用于定义将在所有作业（包括失败的作业）之后运行的命令。这必须是数组或多行字符串。</td>
-</tr>
-<tr>
-<td>stages</td>
-<td>用于定义可由作业使用的阶段，并在全范围内定义。</td>
-</tr>
-<tr>
-<td>stage</td>
-<td>stage是按工作定义的，依赖于全局定义的阶段。它允许将作业分组到不同的阶段，并且同一阶段的作业并行执行（受特定条件限制）。</td>
-</tr>
-<tr>
-<td>only</td>
-<td>定义作业将运行的分支（branches）和标记（tags）的名称。</td>
-</tr>
-<tr>
-<td>except</td>
-<td>定义作业不会运行的分支和标记的名称。</td>
-</tr>
-<tr>
-<td>tags</td>
-<td>用于从允许运行此项目的所有运行程序列表中选择特定的运行程序。</td>
-</tr>
-<tr>
-<td>allow_failure</td>
-<td>允许作业失败而不会影响CI套件的其余部分。除手动作业外，默认值为false。</td>
-</tr>
-<tr>
-<td>when</td>
-<td>用于实现在发生故障或尽管发生故障时运行的作业。取值：on_success，on_failure，always ，manual</td>
-</tr>
-<tr>
-<td>environment</td>
-<td>用于定义作业部署到特定环境。如果指定了环境且该名称下没有环境，则将自动创建一个新环境。</td>
-</tr>
-<tr>
-<td>cache</td>
-<td>用于指定应在作业之间缓存的文件和目录列表。您只能使用项目工作区内的路径。</td>
-</tr>
-<tr>
-<td>artifacts</td>
-<td>用于指定文件和目录的列表，这些文件和目录应在成功，失败或始终作业时附加到作业。作业完成后，工件将被发送到GitLab，并可在GitLab UI中下载。</td>
-</tr>
-<tr>
-<td>dependencies</td>
-<td>此功能应与工件结合使用，并允许您定义要在不同作业之间传递的工件。</td>
-</tr>
-<tr>
-<td>coverage</td>
-<td>允许您配置从作业输出中提取代码覆盖率的方式。</td>
-</tr>
-<tr>
-<td>retry</td>
-<td>允许您配置在发生故障时重试作业的次数。</td>
-</tr>
-<tr>
-<td>parallel</td>
-<td>允许您配置并行运行的作业实例数。该值必须大于或等于二（2）且小于或等于50。</td>
-</tr>
-<tr>
-<td>trigger</td>
-<td>允许您定义下游流水线触发器。当GitLab启动从触发器定义创建的作业时，将创建下游流水线</td>
-</tr>
-<tr>
-<td>include</td>
-<td>使用include关键字，您可以允许包含外部YAML文件。 include要求外部YAML文件具有扩展名.yml或.yaml，否则将不包括外部文件。</td>
-</tr>
-<tr>
-<td>extends</td>
-<td>定义了使用extends的作业将继承的作业名称。</td>
-</tr>
-<tr>
-<td>pages</td>
-<td>是一项特殊工作，用于将静态内容上传到GitLab，可用于为您的网站提供服务。它具有特殊语法，因此必须满足以下两个要求：任何静态内容都必须放在public/目录下。必须定义具有public/目录路径的工件。</td>
-</tr>
-<tr>
-<td>variables</td>
-<td>GitLab CI/CD允许您在.gitlab-ci.yml中定义变量，然后在作业环境中传递。 它们可以在全局和每个作业设置。 在作业级别使用variables关键字时，它会覆盖全局YAML变量和预定义变量。</td>
-</tr>
-</tbody></table>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://jast90.github.io/2019/07/25/gitlab-ci-file-usage/" data-id="ckkxl9zsa000k1cnh2cqaes5b" data-title="Gitlab CI/CD 流水线配置参考" class="article-share-link">Teilen</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2019/08/01/Think-in-java-dynamic-proxy/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Neuer</strong>
-      <div class="article-nav-title">
-        
-          Java 动态代理源码分析
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/07/11/think-in-mybatis/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Älter</strong>
-      <div class="article-nav-title">Mybatis源码分析</div>
-    </a>
-  
-</nav>
-
-  
-</article>
+{% extends '_layout.swig' %}
+{% import '_macro/post.swig' as post_template %}
+{% import '_macro/sidebar.swig' as sidebar_template %}
 
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
+{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-  
-    
+{% block page_class %}page-post-detail{% endblock %}
 
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li></ul>
+
+{% block content %}
+
+  <div id="posts" class="posts-expand">
+    {{ post_template.render(page) }}
+
+    <div class="post-spread">
+      {% if theme.jiathis %}
+        {% include '_partials/share/jiathis.swig' %}
+      {% elseif theme.baidushare %}
+        {% include '_partials/share/baidushare.swig' %}
+      {% elseif theme.add_this_id %}
+        {% include '_partials/share/add-this.swig' %}
+      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
+        {% include '_partials/share/duoshuo_share.swig' %}
+      {% endif %}
     </div>
   </div>
 
+{% endblock %}
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2020/05/16/2020-5-16-%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E3%80%81%E7%A9%BF%E9%80%8F%E3%80%81%E5%87%BB%E7%A9%BF/">缓存雪崩、穿透、击穿</a>
-          </li>
-        
-          <li>
-            <a href="/2020/05/07/2020-5-7-heap-sort/">堆排序</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/26/Think-in-Java-ThreadPoolExecutor/">Java ThreadPoolExecutor 源码分析</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/02/Think-in-cglib-proxy/">Cglib 动态代理使用及深入</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/02/Kubernetes-install-and-nginx-example/">kubernetes minikube安装和运行nginx实例</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
+{% block sidebar %}
+  {{ sidebar_template.render(true) }}
+{% endblock %}
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      
-      &copy; 2021 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-
-<script src="/js/jquery-3.4.1.min.js"></script>
-
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-
-  </div>
-</body>
-</html>
+{% block script_extra %}
+  {% include '_scripts/pages/post-details.swig' %}
+{% endblock %}
