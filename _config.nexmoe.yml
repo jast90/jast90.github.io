@@ -13,7 +13,7 @@ function: # 功能开关，可选值（true,false）
 # 附加图标库 用于自定义字体 www.iconfont.cn 登录->创建项目->添加图标->获取链接
 iconlib: # //at.alicdn.com/t/font_1038733_0xvrvpg9c0r.css
 
-search: https://cn.bing.com/search?q=site:nexmoe.com # https://www.google.com/search?q={你的博客链接}
+search: https://www.google.com/search?q=https://jast90.github.io/
 
 cdn: # 这里可以修改站点使用的库的CDN
   disqusjs: 
@@ -51,6 +51,11 @@ widgets:
 maxTagcloud: 0  # 0 表示不限制
 
 social:
+  GitHub:
+    - https://github.com/jast90/
+    - icon-github
+    - rgb(25, 23, 23)
+    - rgba(25, 23, 23, .15)
   # QQ群: 
   #   - https://jq.qq.com/?_wv=1027&k=5CfKHun
   #   - icon-QQ
@@ -61,11 +66,6 @@ social:
   #   - icon-bilibili
   #   - rgb(231, 106, 141)
   #   - rgba(231, 106, 141, .15)
-  GitHub:
-    - https://github.com/jast90/
-    - icon-github
-    - rgb(25, 23, 23)
-    - rgba(25, 23, 23, .15)
 
 site_verification: # 向搜索引擎验证你对站点的所有权，用于向搜索引擎提交 sitemap 和管理站点被搜索引擎收录的情况。
   google:
