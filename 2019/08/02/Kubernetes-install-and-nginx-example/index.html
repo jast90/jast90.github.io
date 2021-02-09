@@ -1,37 +1,256 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>kubernetes minikube安装和运行nginx实例 | Jast的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="kubernetes安装和运行nginx实例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kubernetes minikube安装和运行nginx实例">
+<meta property="og:url" content="http://jast90.github.io/2019/08/02/Kubernetes-install-and-nginx-example/index.html">
+<meta property="og:site_name" content="Jast的博客">
+<meta property="og:description" content="kubernetes安装和运行nginx实例">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-08-02T06:26:00.000Z">
+<meta property="article:modified_time" content="2021-02-09T06:41:03.328Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Jast的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Jast的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://jast90.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Kubernetes-install-and-nginx-example" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/08/02/Kubernetes-install-and-nginx-example/" class="article-date">
+  <time class="dt-published" datetime="2019-08-02T06:26:00.000Z" itemprop="datePublished">2019-08-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      kubernetes minikube安装和运行nginx实例
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="1-参考"><a href="#1-参考" class="headerlink" title="1.参考"></a>1.参考</h3><ol>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/tools/install-minikube/">install minikube</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/kubernetes/minikube/issues/3860">由于中国网络问题导致安装失败的解决方法</a></li>
+<li><a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tutorials/hello-minikube/">hello-minikube</a></li>
+</ol>
+<h3 id="2-minikube安装"><a href="#2-minikube安装" class="headerlink" title="2.minikube安装"></a>2.minikube安装</h3><p>参考1、2</p>
+<h4 id="2-1-遇到的问题"><a href="#2-1-遇到的问题" class="headerlink" title="2.1 遇到的问题"></a>2.1 遇到的问题</h4><ol>
+<li>minikube-v1.3.0.iso文件下载失败。手动下载后将文件复制到<code>~/.minikube/cache/iso</code>目录下</li>
+<li>由于中国网络问题无法下载google的相关容器，可以通过<code>--image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers</code> 参数来创建kubernetes集群，即：<code>minikube start --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers</code></li>
+</ol>
+<h3 id="3-使用"><a href="#3-使用" class="headerlink" title="3.使用"></a>3.使用</h3><h4 id="3-1创建、查看Pod"><a href="#3-1创建、查看Pod" class="headerlink" title="3.1创建、查看Pod"></a>3.1创建、查看Pod</h4><p>nginxPod.yaml：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">labels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">    <span class="attr">containers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">      <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
+<p>创建Pod</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f nginxPod.yaml</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;</span></span><br><span class="line">pod/nginx created</span><br></pre></td></tr></table></figure>
+<p>查看Pod</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;</span></span><br><span class="line">NAME    READY   STATUS    RESTARTS   AGE</span><br><span class="line">nginx   1/1     Running   0          5m31s</span><br></pre></td></tr></table></figure>
+<h4 id="3-2创建-Service"><a href="#3-2创建-Service" class="headerlink" title="3.2创建 Service"></a>3.2创建 Service</h4><p>nginxService.yml：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">LoadBalancer</span></span><br><span class="line">    <span class="attr">ports:</span> </span><br><span class="line">    <span class="bullet">-</span> <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">targetPort:</span> <span class="number">80</span></span><br><span class="line">    <span class="attr">selector:</span> </span><br><span class="line">      <span class="attr">app:</span> <span class="string">nginx</span></span><br></pre></td></tr></table></figure>
+<p>创建Service</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f nginxService.yaml</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;</span></span><br><span class="line">service/nginx created</span><br></pre></td></tr></table></figure>
+<p>查看Service</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;</span></span><br><span class="line">NAME         TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE</span><br><span class="line">kubernetes   ClusterIP      10.96.0.1        &lt;none&gt;        443/TCP        6h39m</span><br><span class="line">nginx        LoadBalancer   10.103.218.102   &lt;pending&gt;     80:30521/TCP   8m23s</span><br></pre></td></tr></table></figure>
+<h4 id="3-3访问服务"><a href="#3-3访问服务" class="headerlink" title="3.3访问服务"></a>3.3访问服务</h4><p>在支持负载均衡器的云提供商上，将配置外部IP地址以访问服务。在Minikube上，LoadBalancer类型通过<code>minikube service</code>命令使服务可访问。</p>
+<p>minikube：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minikube service nginxService</span><br></pre></td></tr></table></figure>
+<p>或者直接通过<code>宿主机IP:端口</code>访问，如：<code>http://192.168.99.100:30521</code></p>
+<h4 id="3-4-dashboard使用"><a href="#3-4-dashboard使用" class="headerlink" title="3.4 dashboard使用"></a>3.4 dashboard使用</h4><p>运行如下命令会自动打开浏览器到管理界面</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minikube dashboard</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jast90.github.io/2019/08/02/Kubernetes-install-and-nginx-example/" data-id="ckkxmygna000ny0n919xsax54" data-title="kubernetes minikube安装和运行nginx实例" class="article-share-link">Teilen</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/08/02/Think-in-cglib-proxy/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          Cglib 动态代理使用及深入
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/01/Think-in-java-dynamic-proxy/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">Java 动态代理源码分析</div>
+    </a>
+  
+</nav>
+
+  
+</article>
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+</section>
+        
+          <aside id="sidebar">
+  
+    
 
-{% block page_class %}page-post-detail{% endblock %}
+  
+    
 
-
-{% block content %}
-
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
-
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">November 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a></li></ul>
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/05/16/2020-5-16-%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E3%80%81%E7%A9%BF%E9%80%8F%E3%80%81%E5%87%BB%E7%A9%BF/">缓存雪崩、穿透、击穿</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/07/2020-5-7-heap-sort/">堆排序</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/26/Think-in-Java-ThreadPoolExecutor/">Java ThreadPoolExecutor 源码分析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/02/Think-in-cglib-proxy/">Cglib 动态代理使用及深入</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/02/Kubernetes-install-and-nginx-example/">kubernetes minikube安装和运行nginx实例</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
